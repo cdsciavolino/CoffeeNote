@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kNk-2U-qVQ">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--<Month> <Day>, <Year>-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FinalProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Select a day to begin" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSj-Kr-Pem">
+                                <rect key="frame" x="20" y="398" width="560" height="181.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Date Here:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ryo-Js-eC8">
+                                <rect key="frame" x="20" y="365" width="560" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Kh3-4A-IXX">
+                                <rect key="frame" x="20" y="72" width="560" height="285"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="285" id="vz3-cW-jth"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4Dp-HT-ZIb">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="TopLeft" reuseIdentifier="Cell" id="0lO-jn-mQe" customClass="CollectionViewCell" customModule="FinalProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FGb-XU-aAJ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dyh-71-FGQ">
+                                                    <rect key="frame" x="4" y="14" width="42" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gfQ-O2-ykR">
+                                                    <rect key="frame" x="22.5" y="6" width="5" height="5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="5" id="G9X-Cc-alJ"/>
+                                                        <constraint firstAttribute="height" constant="5" id="Q3W-Mk-43e"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="FGb-XU-aAJ" firstAttribute="top" secondItem="0lO-jn-mQe" secondAttribute="topMargin" constant="-8" id="BCM-EP-kMw"/>
+                                            <constraint firstItem="FGb-XU-aAJ" firstAttribute="centerX" secondItem="0lO-jn-mQe" secondAttribute="centerX" id="JeK-pa-jol"/>
+                                            <constraint firstItem="Dyh-71-FGQ" firstAttribute="centerY" secondItem="0lO-jn-mQe" secondAttribute="centerY" id="LQ4-P4-ilC"/>
+                                            <constraint firstItem="Dyh-71-FGQ" firstAttribute="centerX" secondItem="0lO-jn-mQe" secondAttribute="centerX" id="RvX-l7-dwp"/>
+                                            <constraint firstItem="Dyh-71-FGQ" firstAttribute="top" secondItem="gfQ-O2-ykR" secondAttribute="bottom" constant="3" id="UMR-po-G8u"/>
+                                            <constraint firstItem="FGb-XU-aAJ" firstAttribute="centerY" secondItem="0lO-jn-mQe" secondAttribute="centerY" id="VSZ-6o-RYE"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="FGb-XU-aAJ" secondAttribute="bottom" constant="-8" id="YJJ-hE-Ds6"/>
+                                            <constraint firstItem="FGb-XU-aAJ" firstAttribute="leading" secondItem="0lO-jn-mQe" secondAttribute="leadingMargin" constant="-8" id="YrN-Uk-1bF"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="FGb-XU-aAJ" secondAttribute="trailing" constant="-8" id="ewF-bP-8ds"/>
+                                            <constraint firstItem="gfQ-O2-ykR" firstAttribute="centerX" secondItem="0lO-jn-mQe" secondAttribute="centerX" id="nje-yk-5Vv"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="hasDataSelectionView" destination="gfQ-O2-ykR" id="tXS-sV-0y9"/>
+                                            <outlet property="label" destination="Dyh-71-FGQ" id="NNj-wj-ax3"/>
+                                            <outlet property="selectionView" destination="FGb-XU-aAJ" id="xFY-Ps-Eqy"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="scaleToFill" reuseIdentifier="Header" id="ubq-Iw-pUZ" customClass="WeekdayCollectionReusableView" customModule="FinalProject" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="560" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DG6-Ux-GwW">
+                                            <rect key="frame" x="0.0" y="0.0" width="560" height="50"/>
+                                            <color key="backgroundColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oNY-ZT-b3W">
+                                                <size key="itemSize" width="50" height="50"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                            <cells>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="center" reuseIdentifier="Cell" id="noZ-Gk-KTD" customClass="WeekdayCollectionViewCell" customModule="FinalProject" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OP4-44-C1p">
+                                                                <rect key="frame" x="4" y="14" width="42" height="20.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <color key="backgroundColor" red="0.4392156862745098" green="0.4392156862745098" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="OP4-44-C1p" firstAttribute="centerY" secondItem="noZ-Gk-KTD" secondAttribute="centerY" id="3ko-0j-Qr1"/>
+                                                        <constraint firstItem="OP4-44-C1p" firstAttribute="centerX" secondItem="noZ-Gk-KTD" secondAttribute="centerX" id="PKW-lr-1R1"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="dayLabel" destination="OP4-44-C1p" id="cNc-fC-gh0"/>
+                                                    </connections>
+                                                </collectionViewCell>
+                                            </cells>
+                                        </collectionView>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.4392156862745098" green="0.4392156862745098" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="DG6-Ux-GwW" firstAttribute="leading" secondItem="ubq-Iw-pUZ" secondAttribute="leadingMargin" constant="-8" id="8LO-2l-fKX"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="DG6-Ux-GwW" secondAttribute="trailing" constant="-8" id="9gy-a5-VZp"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="DG6-Ux-GwW" secondAttribute="bottom" constant="-8" id="LDQ-dH-l8o"/>
+                                        <constraint firstItem="DG6-Ux-GwW" firstAttribute="centerX" secondItem="ubq-Iw-pUZ" secondAttribute="centerX" id="Ta6-os-58o"/>
+                                        <constraint firstItem="DG6-Ux-GwW" firstAttribute="centerY" secondItem="ubq-Iw-pUZ" secondAttribute="centerY" id="seA-VD-Qsf"/>
+                                        <constraint firstItem="DG6-Ux-GwW" firstAttribute="top" secondItem="ubq-Iw-pUZ" secondAttribute="topMargin" constant="-8" id="thK-Ef-t6L"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="weekdayCollectionView" destination="DG6-Ux-GwW" id="foA-X3-wEt"/>
+                                    </connections>
+                                </collectionReusableView>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="Ryo-Js-eC8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="97f-Ot-ETa"/>
+                            <constraint firstItem="Ryo-Js-eC8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FBT-mz-4Z3"/>
+                            <constraint firstItem="Ryo-Js-eC8" firstAttribute="top" secondItem="Kh3-4A-IXX" secondAttribute="bottom" constant="8" id="Ga7-no-haS"/>
+                            <constraint firstItem="CSj-Kr-Pem" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OvX-9Q-2dx"/>
+                            <constraint firstItem="Kh3-4A-IXX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VoM-JW-dTl"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="CSj-Kr-Pem" secondAttribute="bottom" constant="20" id="b3J-fZ-Qyo"/>
+                            <constraint firstItem="Kh3-4A-IXX" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ejS-wI-Ua0"/>
+                            <constraint firstItem="CSj-Kr-Pem" firstAttribute="top" secondItem="Ryo-Js-eC8" secondAttribute="bottom" constant="8" id="fj6-aE-qgW"/>
+                            <constraint firstItem="Kh3-4A-IXX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="i2o-OP-XVY"/>
+                            <constraint firstItem="CSj-Kr-Pem" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="mvB-8l-bwe"/>
+                            <constraint firstItem="CSj-Kr-Pem" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="pYg-kB-SZ9"/>
+                            <constraint firstItem="Ryo-Js-eC8" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="qXy-iw-fnX"/>
+                            <constraint firstItem="Kh3-4A-IXX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="wgJ-Ig-z3Z"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="DDS-zJ-03c" appends="YES" id="MEq-iT-b10"/>
+                            <outletCollection property="gestureRecognizers" destination="eed-uo-nVE" appends="YES" id="6oq-QP-8Ae"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" title="&lt;Month&gt; &lt;Day&gt;, &lt;Year&gt;" id="71P-TP-HYp">
+                        <barButtonItem key="leftBarButtonItem" title="Last Month" id="CR4-xP-ly6">
+                            <connections>
+                                <action selector="lastMonthButtonPressed:" destination="BYZ-38-t0r" id="Yk1-XA-yxC"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Next Month" id="rer-7F-33v">
+                            <connections>
+                                <action selector="nextMonthButtonPressed:" destination="BYZ-38-t0r" id="Jtf-Gj-PRK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="bottomTextFieldConstraint" destination="b3J-fZ-Qyo" id="yFi-YO-7zs"/>
+                        <outlet property="collectionView" destination="Kh3-4A-IXX" id="oPl-YY-VSu"/>
+                        <outlet property="dateLabel" destination="Ryo-Js-eC8" id="g5X-26-0AE"/>
+                        <outlet property="lastMonthBarButton" destination="CR4-xP-ly6" id="fRE-cx-Nxr"/>
+                        <outlet property="notepadTF" destination="CSj-Kr-Pem" id="Vp6-Wr-bMk"/>
+                        <outlet property="topDateLabelConstraint" destination="Ga7-no-haS" id="uHl-WU-cjD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="DDS-zJ-03c">
+                    <connections>
+                        <action selector="screenSwiped:" destination="BYZ-38-t0r" id="wam-xw-94l"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="eed-uo-nVE">
+                    <connections>
+                        <action selector="screenSwipedLeft:" destination="BYZ-38-t0r" id="5um-yL-m1D"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="810" y="407"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zbE-PU-Ogx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kNk-2U-qVQ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" alpha="0.80000000000000004" contentMode="scaleToFill" barStyle="blackTranslucent" id="Hgp-PS-Wg2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="97x-p2-4Ih"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xeN-hb-kcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="170" y="407"/>
+        </scene>
+    </scenes>
+</document>
