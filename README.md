@@ -1,6 +1,6 @@
-# SciavolinoCalendar
+# SciavolinoCalendarV2.0
 
-**github link: https://github.com/cdsciavolino/SciavolinoCalendar**
+**github link: https://github.com/cdsciavolino/SciavolinoCalendarV2.0**
 
 This application is a cross between a calendar and a notepad. It allows you to save information in notepad form for a specific day of the month/year. For example, if you input “Math Homework Due” under Friday, December 4, 2015, the information will be saved to that specific notepad to be pulled up whenever you select that day next.
 

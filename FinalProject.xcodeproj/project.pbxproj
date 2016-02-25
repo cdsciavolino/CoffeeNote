@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8338E23C1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */; };
+		833B41141C7F74070085BD00 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833B41131C7F74060085BD00 /* Day.swift */; };
 		835EEB7A1C068E360038DEF6 /* WeekdayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */; };
 		838283801C0637C200F003CC /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382837F1C0637C200F003CC /* Month.swift */; };
 		839111BC1BFEAE94002721A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839111BB1BFEAE94002721A2 /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeekdayCollectionReusableView.swift; path = ../WeekdayCollectionReusableView.swift; sourceTree = "<group>"; };
+		833B41131C7F74060085BD00 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayCollectionViewCell.swift; sourceTree = "<group>"; };
 		8382837F1C0637C200F003CC /* Month.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		839111B81BFEAE94002721A2 /* FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +68,7 @@
 			children = (
 				839111BB1BFEAE94002721A2 /* AppDelegate.swift */,
 				839111BD1BFEAE94002721A2 /* ViewController.swift */,
+				833B41131C7F74060085BD00 /* Day.swift */,
 				8382837F1C0637C200F003CC /* Month.swift */,
 				839111BF1BFEAE94002721A2 /* Main.storyboard */,
 				835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */,
@@ -153,6 +156,7 @@
 			files = (
 				8338E23C1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift in Sources */,
 				839111BE1BFEAE94002721A2 /* ViewController.swift in Sources */,
+				833B41141C7F74070085BD00 /* Day.swift in Sources */,
 				835EEB7A1C068E360038DEF6 /* WeekdayCollectionViewCell.swift in Sources */,
 				838283801C0637C200F003CC /* Month.swift in Sources */,
 				839111BC1BFEAE94002721A2 /* AppDelegate.swift in Sources */,
