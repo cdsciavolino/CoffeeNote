@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
-    <entity name="Item" syncable="YES">
-        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
-    <entity name="ItemTwo" syncable="YES">
+    <entity name="DayToSave" representedClassName=".DayToSave" syncable="YES">
+        <attribute name="dateString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="savedText" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-54" positionY="-9" width="128" height="60"/>
-        <element name="ItemTwo" positionX="-54" positionY="0" width="128" height="60"/>
+        <element name="DayToSave" positionX="-54" positionY="-9" width="128" height="75"/>
     </elements>
 </model>

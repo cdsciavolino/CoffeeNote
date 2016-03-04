@@ -14,9 +14,7 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var selectionView: UIView!
     @IBOutlet weak var hasDataSelectionView: UIView!
     
-    var month: Month!
-    var year: Int!
-    var text: String!
+    var dayRep: Day!
 
     
     override func layoutSubviews() {

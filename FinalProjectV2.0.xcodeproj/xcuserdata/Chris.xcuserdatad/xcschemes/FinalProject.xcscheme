@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "839111B71BFEAE94002721A2"
-               BuildableName = "FinalProject.app"
-               BlueprintName = "FinalProject"
-               ReferencedContainer = "container:FinalProject.xcodeproj">
+               BuildableName = "FinalProjectV2.0.app"
+               BlueprintName = "FinalProjectV2.0"
+               ReferencedContainer = "container:FinalProjectV2.0.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "839111B71BFEAE94002721A2"
-            BuildableName = "FinalProject.app"
-            BlueprintName = "FinalProject"
-            ReferencedContainer = "container:FinalProject.xcodeproj">
+            BuildableName = "FinalProjectV2.0.app"
+            BlueprintName = "FinalProjectV2.0"
+            ReferencedContainer = "container:FinalProjectV2.0.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "839111B71BFEAE94002721A2"
-            BuildableName = "FinalProject.app"
-            BlueprintName = "FinalProject"
-            ReferencedContainer = "container:FinalProject.xcodeproj">
+            BuildableName = "FinalProjectV2.0.app"
+            BlueprintName = "FinalProjectV2.0"
+            ReferencedContainer = "container:FinalProjectV2.0.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "839111B71BFEAE94002721A2"
-            BuildableName = "FinalProject.app"
-            BlueprintName = "FinalProject"
-            ReferencedContainer = "container:FinalProject.xcodeproj">
+            BuildableName = "FinalProjectV2.0.app"
+            BlueprintName = "FinalProjectV2.0"
+            ReferencedContainer = "container:FinalProjectV2.0.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

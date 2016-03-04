@@ -10,10 +10,39 @@ import UIKit
 
 class Day: NSObject {
     
-    var month: Month
-    var numDayInMonth: Int = 0
-    var dayText: String = ""
-    var containsData: Bool = false
+    /* 
+        Class that represents an instance of Day. 
     
+        ATTRIBUTES:
+            name            : Type      Description
+                                            [invariants]
+            month           : Month     Represents the month the day resides in.
+                                            [Must be a valid Month object]
+            dayNumValue     : Int       Represents the day of the month the instance has
+                                            [Must be in 1 .. number of days in month]
+            dayText         : String    Text data associated with the current Day instance
+                                            [Any string]
+    */
+    
+    var month: Month
+    var dayNumValue: Int
+    var dayText: String = ""
+    var stringRepDate: String
+    
+    init(month: Month, dayNumValue: Int, dayText: String?) {
+        
+        self.month = month
+        self.dayNumValue = dayNumValue
+        self.dayText = dayText ?? ""
+        self.stringRepDate = "\(month.monthValue)/\(dayNumValue)/\(month.currentYear)"
+    }
+    
+    func getDescription() -> String {
+        return self.stringRepDate
+    }
+    
+    func containsData() -> Bool {
+        return !self.dayText.isEmpty
+    }
 
 }

@@ -12,11 +12,12 @@ class Month: NSObject {
 
     /*
     ATTRIBUTES:
-        monthName: String value of one of the twelve months
-        monthValue: Int representaion of one of the twelve months
-        numDaysInMonth: Int value of how many days in specified month
-        leapYear: Boolean value passed if the current year is a leap year or not
-        firstDayInMonth: Int representation of the first day of the given month according to the following:
+        monthName       : String value of one of the twelve months
+        monthValue      : Int representaion of one of the twelve months
+        numDaysInMonth  : Int value of how many days in specified month
+        leapYear        : Boolean value returning if the current year is a leap year or not
+        currentYear     : Int value represents the value of the current year
+        firstDayInMonth : Int representation of the first day of the given month according to the following:
             Sunday:     0
             Monday:     1
             Tuesday:    2
@@ -29,6 +30,7 @@ class Month: NSObject {
     var monthValue: Int
     var numDaysInMonth: Int
     var leapYear: Bool
+    var currentYear: Int
     var firstDayInMonth: Int
     
     init(month: Int, year: Int) {
@@ -36,6 +38,7 @@ class Month: NSObject {
         self.monthName = ""
         self.numDaysInMonth = 0
         self.leapYear = true
+        self.currentYear = year
         self.firstDayInMonth = 0
         super.init()
         self.leapYear = isLeapYear(year)

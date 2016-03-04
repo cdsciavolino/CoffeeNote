@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8338E23C1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */; };
-		833B41141C7F74070085BD00 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833B41131C7F74060085BD00 /* Day.swift */; };
+		8355C3321C8A38C20050513D /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8355C3311C8A38C20050513D /* Day.swift */; };
 		835EEB7A1C068E360038DEF6 /* WeekdayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */; };
 		838283801C0637C200F003CC /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382837F1C0637C200F003CC /* Month.swift */; };
 		839111BC1BFEAE94002721A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839111BB1BFEAE94002721A2 /* AppDelegate.swift */; };
@@ -18,14 +18,16 @@
 		839111C61BFEAE94002721A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 839111C51BFEAE94002721A2 /* Assets.xcassets */; };
 		839111C91BFEAE94002721A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 839111C71BFEAE94002721A2 /* LaunchScreen.storyboard */; };
 		839111D11BFEB110002721A2 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839111D01BFEB110002721A2 /* CollectionViewCell.swift */; };
+		83B5E1691C854AE700F5A8C3 /* DayToSave+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B5E1671C854AE700F5A8C3 /* DayToSave+CoreDataProperties.swift */; };
+		83B5E16A1C854AE700F5A8C3 /* DayToSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B5E1681C854AE700F5A8C3 /* DayToSave.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeekdayCollectionReusableView.swift; path = ../WeekdayCollectionReusableView.swift; sourceTree = "<group>"; };
-		833B41131C7F74060085BD00 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		8355C3311C8A38C20050513D /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayCollectionViewCell.swift; sourceTree = "<group>"; };
 		8382837F1C0637C200F003CC /* Month.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
-		839111B81BFEAE94002721A2 /* FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		839111B81BFEAE94002721A2 /* FinalProjectV2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProjectV2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		839111BB1BFEAE94002721A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		839111BD1BFEAE94002721A2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		839111C01BFEAE94002721A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -34,6 +36,8 @@
 		839111C81BFEAE94002721A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		839111CA1BFEAE94002721A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		839111D01BFEB110002721A2 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		83B5E1671C854AE700F5A8C3 /* DayToSave+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DayToSave+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		83B5E1681C854AE700F5A8C3 /* DayToSave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayToSave.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +62,7 @@
 		839111B91BFEAE94002721A2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				839111B81BFEAE94002721A2 /* FinalProject.app */,
+				839111B81BFEAE94002721A2 /* FinalProjectV2.0.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,9 +72,11 @@
 			children = (
 				839111BB1BFEAE94002721A2 /* AppDelegate.swift */,
 				839111BD1BFEAE94002721A2 /* ViewController.swift */,
-				833B41131C7F74060085BD00 /* Day.swift */,
+				8355C3311C8A38C20050513D /* Day.swift */,
 				8382837F1C0637C200F003CC /* Month.swift */,
 				839111BF1BFEAE94002721A2 /* Main.storyboard */,
+				83B5E1671C854AE700F5A8C3 /* DayToSave+CoreDataProperties.swift */,
+				83B5E1681C854AE700F5A8C3 /* DayToSave.swift */,
 				835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */,
 				8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */,
 				839111D01BFEB110002721A2 /* CollectionViewCell.swift */,
@@ -85,9 +91,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		839111B71BFEAE94002721A2 /* FinalProject */ = {
+		839111B71BFEAE94002721A2 /* FinalProjectV2.0 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "FinalProject" */;
+			buildConfigurationList = 839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "FinalProjectV2.0" */;
 			buildPhases = (
 				839111B41BFEAE94002721A2 /* Sources */,
 				839111B51BFEAE94002721A2 /* Frameworks */,
@@ -97,9 +103,9 @@
 			);
 			dependencies = (
 			);
-			name = FinalProject;
+			name = FinalProjectV2.0;
 			productName = FinalProject;
-			productReference = 839111B81BFEAE94002721A2 /* FinalProject.app */;
+			productReference = 839111B81BFEAE94002721A2 /* FinalProjectV2.0.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -118,7 +124,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "FinalProject" */;
+			buildConfigurationList = 839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "FinalProjectV2.0" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -131,7 +137,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				839111B71BFEAE94002721A2 /* FinalProject */,
+				839111B71BFEAE94002721A2 /* FinalProjectV2.0 */,
 			);
 		};
 /* End PBXProject section */
@@ -154,13 +160,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B5E1691C854AE700F5A8C3 /* DayToSave+CoreDataProperties.swift in Sources */,
 				8338E23C1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift in Sources */,
 				839111BE1BFEAE94002721A2 /* ViewController.swift in Sources */,
-				833B41141C7F74070085BD00 /* Day.swift in Sources */,
 				835EEB7A1C068E360038DEF6 /* WeekdayCollectionViewCell.swift in Sources */,
 				838283801C0637C200F003CC /* Month.swift in Sources */,
 				839111BC1BFEAE94002721A2 /* AppDelegate.swift in Sources */,
 				839111D11BFEB110002721A2 /* CollectionViewCell.swift in Sources */,
+				83B5E16A1C854AE700F5A8C3 /* DayToSave.swift in Sources */,
+				8355C3321C8A38C20050513D /* Day.swift in Sources */,
 				839111C41BFEAE94002721A2 /* FinalProject.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,7 +286,7 @@
 				INFOPLIST_FILE = FinalProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ChrisSciavolino.FinalProject;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FinalProjectV2.0;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -292,7 +300,7 @@
 				INFOPLIST_FILE = FinalProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ChrisSciavolino.FinalProject;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FinalProjectV2.0;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -300,7 +308,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "FinalProject" */ = {
+		839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "FinalProjectV2.0" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				839111CB1BFEAE94002721A2 /* Debug */,
@@ -309,7 +317,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "FinalProject" */ = {
+		839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "FinalProjectV2.0" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				839111CE1BFEAE94002721A2 /* Debug */,

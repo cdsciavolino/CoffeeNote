@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var notepadTF: UITextView!
@@ -18,8 +18,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var bottomTextFieldConstraint: NSLayoutConstraint!
     @IBOutlet weak var topDateLabelConstraint: NSLayoutConstraint!
     
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    
     //psuedo-days in month
     var items: [String] = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    
+    var previouslySavedDaysArray: [DayToSave] = []
+    var dayDictionary: [String : Day] = [:]
+    var monthCollectionArray: [Day] = []
     
     var dataDatesArray: [NSManagedObject] = [] //Storing Item entities. Item has an attribute called 'date'
     // NSManagedObject: a single object stored in Core Data. Use, create, edut, save, and delete from Core Data persistent store
@@ -27,7 +33,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var dataTextArray: [NSManagedObject] = []
     
     var textFieldData: [String: String] = [:]
-        
+    
     //flowlayout that formats the UICOllectionView
     lazy var flowLayout: UICollectionViewFlowLayout = {
         
@@ -85,15 +91,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         //Helper function that fetches the data from CoreData upon loading in the application
         fetchDatesFromCoreData()
+        grabDaysForDictionary()
         
         //takes the data int he dataDatesArray and dataTextArray and converts it to the textFieldData dictionary
-        if dataTextArray.count != 0 {
-            
-            for index in 0...dataTextArray.count-1 {
-                textFieldData[(dataDatesArray[index].valueForKey("date")) as! String] = dataTextArray[index].valueForKey("savedText") as? String
-            }
-        }
-    
+        
         //Setting up notifications when keyboard comes up/recedes
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
@@ -108,6 +109,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let year = calendar?.components(.Year, fromDate: today)
         let currentMonthData = Month(month: month.month, year: (year?.year)!)
         
+        monthCollectionArray = generateItemsArray(Month(month: currentMonthData.monthValue, year: selectedYear), selectedYear: (year?.year)!)
+        
         //initializes values
         self.view.backgroundColor = UIColor(red: 0.43922, green: 0.43922, blue: 0.43922, alpha: 0.8)
         notepadTF.backgroundColor = UIColor(red: 0.43922, green: 0.43922, blue: 0.43922, alpha: 0.8)
@@ -117,25 +120,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         self.title = "\(currentMonthData.monthName) \(year!.year)"
         dateLabel.text = "\(currentMonthData.monthName) \(day.day), \(year!.year)"
-        var counter = 1
-        for x in currentMonthData.firstDayInMonth...(currentMonthData.numDaysInMonth + currentMonthData.firstDayInMonth) {
-            items[x] = String(counter)
-            if counter == currentMonthData.numDaysInMonth {
-                counter = 0
-                break
-            }
-            counter += 1
-        }
-//        uncomment if you want to implement days in the beginning and end of the collectionView
-        
-//        let priorMonth = Month(month: month.month-1, year: selectedYear)
-//        var num = priorMonth.numDaysInMonth
-//        let numToChange = (0...currentMonthData.firstDayInMonth-1).count - 1
-//        num -= numToChange
-//        for x in 0...currentMonthData.firstDayInMonth-1 {
-//            items[x] = num
-//            num += 1
-//        }
         
         //takes away the gap at the top of the collectionView
         self.automaticallyAdjustsScrollViewInsets = false
@@ -149,11 +133,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
         collectionView.backgroundColor = UIColor(red: 0.43922, green: 0.43922, blue: 0.43922, alpha: 0.8)
         flowLayout.headerReferenceSize = CGSizeMake(self.collectionView.frame.size.width, 35)
-        
         //what we had before autolayout; given a frame, expand the view to fit into new frame
     }
     
-
+    
     override func viewDidAppear(animated: Bool) {
         notepadTF.textColor = UIColor.whiteColor()
     }
@@ -177,21 +160,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         notepadTF.editable = true
         notepadTF.selectable = true
         dest.selectionView.alpha = 0.8
-        dateLabel.text = "\(dest.month.monthName) \(dest.label.text!), \(dest.year)"
+        dateLabel.text = "\(dest.dayRep.month.monthName) \(dest.label.text!), \(dest.dayRep.month.currentYear)"
         
         //if selected, need to toggle in order to get the buttons to trigger correctly
         dest.selected = true
+        dest.userInteractionEnabled = false
         
-        selectedDay = Int(dest.label.text!)!
-        
-        //following searches the dictionary for the key (date) to see if there is any text. Else, it makes it default
-        let newString = String(dest.month.monthValue) + "/" + String(dest.label.text!) + "/" + String(dest.year)
-        if let loadedData = textFieldData[newString] {
-            notepadTF.text = loadedData
-        } else {
-//            notepadTF.text = String(dest.month.monthName) + " " + String(dest.label.text!) + ", " + String(dest.year)
-            notepadTF.text = ""
-        }
+        selectedDay = dest.dayRep.dayNumValue
+
+        notepadTF.text = dest.dayRep.dayText
         notepadTF.font = notepadTF.font?.fontWithSize(18.0)
     }
     
@@ -204,31 +181,32 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         //if selected, need to toggle in order to get the buttons to trigger correctly
         dest.selected = false
+        dest.userInteractionEnabled = true
         
         dest.selectionView.alpha = 0.0
         view.endEditing(true)
         
-        if "\(dest.month.monthValue)/\(dest.label.text!)/\(dest.year)" == todayStringValue {
+        if dest.dayRep.getDescription() == todayStringValue {
             dest.selectionView.backgroundColor = UIColor(red: 138/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1.0)
             dest.selectionView.alpha = 0.8
         }
         
         //following searches the dictionary for the key (date) to see if there is any text. Else, it makes it default
-        let stringRep = String(dest.month.monthValue) + "/" + String(dest.label.text!) + "/" + String(dest.year)
         
         // Saves the data when the cell is deselected
-        saveDateData(stringRep, textDataToSave: notepadTF.text)
-        
-        if textFieldData.keys.contains(stringRep) {
-            textFieldData[stringRep] = notepadTF.text
+        dest.dayRep.dayText = notepadTF.text ?? ""
+        if dest.dayRep.containsData() {
+            dayDictionary[dest.dayRep.getDescription()] = dest.dayRep
+            saveDateData(dest.dayRep)
         } else {
-            textFieldData[stringRep] = notepadTF.text ?? ""
+            dayDictionary.removeValueForKey((dest.dayRep?.getDescription())!)
+            // TODO: want to delete this Day from the context ***
         }
         
         //hasDataSelectionViewFormatting
         dest.hasDataSelectionView.layer.cornerRadius = dest.hasDataSelectionView.frame.width / 2.0
         dest.hasDataSelectionView.alpha = 0.0
-        if textFieldData.keys.contains(stringRep) && textFieldData[stringRep] != "" {
+        if dest.dayRep.containsData() {
             dest.hasDataSelectionView.alpha = 0.8
         }
     }
@@ -237,16 +215,22 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         //formats and fills each cell according to the class CollectionViewCell
-//        print("setting up cells")
+        //        print("setting up cells")
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CollectionViewCell
-        cell.label.text = String(items[indexPath.row])
-        cell.month = selectedMonth
-        cell.year = selectedYear
+        cell.selected = false
+        cell.selectionView.alpha = 0.0
+        cell.dayRep = monthCollectionArray[indexPath.row]
+        if cell.dayRep.dayNumValue == 0 {
+            cell.label.text = ""
+        } else {
+            cell.label.text = String(cell.dayRep.dayNumValue)
+        }
+        
         cell.selectionView.backgroundColor = UIColor.orangeColor()
         cell.selectionView.layer.cornerRadius = cell.frame.width / 2.0
         cell.label.textColor = UIColor.whiteColor()
-        let stringRep = "\(cell.month.monthValue)/\(cell.label.text!)/\(cell.year)"
-        if stringRep == todayStringValue {
+        cell.hasDataSelectionView.layer.cornerRadius = cell.hasDataSelectionView.frame.width / 2.0
+        if cell.dayRep.getDescription() == todayStringValue {
             cell.selectionView.backgroundColor = UIColor(red: 138/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1.0)
             cell.selectionView.alpha = 0.8
         }
@@ -254,18 +238,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //if the label is empty then the user cannot crash the program by pressing it
         if cell.label.text == "" {
             cell.userInteractionEnabled = false
-        }
-        else {
+        } else {
             cell.userInteractionEnabled = true
         }
         
         //hasDataSelectionView Formatting
-        cell.hasDataSelectionView.layer.cornerRadius = cell.hasDataSelectionView.frame.width / 2.0
         cell.hasDataSelectionView.alpha = 0.0
-        if textFieldData.keys.contains(stringRep) && textFieldData[stringRep] != "" {
+        if cell.dayRep.containsData() {
             cell.hasDataSelectionView.alpha = 0.8
         }
-        
         return cell
     }
     
@@ -274,7 +255,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         //returns number of items in the collectionView
         
-        return items.count
+        return monthCollectionArray.count
     }
     
     
@@ -352,77 +333,90 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-    func generateItemsArray(selectedMonthData: Month, selectedYear: Int) -> [String] {
+    func generateItemsArray(selectedMonthData: Month, selectedYear: Int) -> [Day] {
         
         /*
-        Parameters: selectedMonthData: Month
-                        represents the current month that the calendar will be
-                    selectedYear: Int
-                        represents the current year of the calendar section
-        Returns:    [String]
-                        the new items list that contains a list of strings that stand for the days of the month
+            PARAMETER           : TYPE      DESCRIPTION
         
-        Used for:
-            generating a new items array with days of that specific month
-        
-        How it works:
-            first, parses the array and sets everything equal to null set
-            second, parses the array starting at the index of the firstDayInMonth, so it reflects the first weekday
-            returns itemsArray
+            selectedMonthData   : Month     Represents the current selected month to create array for
+            selectedYear        : Int       Represents the current selected year to create the array for
         */
         
+        var newItemsArray: [Day] = []
         var counter = 1
-        var itemsArray: [String] = []
-        for _ in 0...items.count-1 {//selectedMonthData.firstDayInMonth-1 {
-            itemsArray.append("")
-        }
-        for x in selectedMonthData.firstDayInMonth...itemsArray.count - 1 { //(selectedMonthData.numDaysInMonth + selectedMonthData.firstDayInMonth + 1) {
-            itemsArray[x] = String(counter)//.append(String(counter))
-            if counter == selectedMonthData.numDaysInMonth {
-                counter = 0
-                break
-            }
-//            print(counter)
-            counter += 1
-        }
-//        print(itemsArray)
-//        print("Num days in month is \(selectedMonthData.numDaysInMonth)")
-//        print(selectedMonthData.firstDayInMonth)
-//        print(itemsArray.count)
-    
-//        uncomment if you want days to be filled in the first and last cells
         
-//        if selectedMonthData.firstDayInMonth != 0 {
-//            let priorMonth = Month(month: selectedMonthData.monthValue-1, year: selectedYear)
-//            var num = priorMonth.numDaysInMonth
-//            let numToChange = (0...selectedMonthData.firstDayInMonth-1).count - 1
-//            num -= numToChange
-//            for x in 0...selectedMonthData.firstDayInMonth-1 {
-//                itemsArray[x] = num
-//                num += 1
-//            }
-//      }
-        return itemsArray
+        if selectedMonthData.firstDayInMonth != 0 {
+            for _ in 0 ... selectedMonthData.firstDayInMonth - 1 {
+                let emptyDay: Day = Day(month: selectedMonthData, dayNumValue: 0, dayText: "")
+                newItemsArray.append(emptyDay)
+            }
+        }
+        
+        for _ in selectedMonthData.firstDayInMonth ... (selectedMonthData.numDaysInMonth + selectedMonthData.firstDayInMonth - 1) {
+            //gets the current data in the dictionary if it exists
+            let currentDayTextValue = dayDictionary[toDateForm(selectedMonthData, dayValue: counter)]?.dayText ?? ""
+            let newDay: Day = Day(month: selectedMonthData, dayNumValue: counter, dayText: currentDayTextValue)
+            newItemsArray.append(newDay)
+            counter++
+        }
+        
+        return newItemsArray
+        
+    }
+    
+    func toDateForm(month: Month, dayValue: Int) -> String {
+        
+        return "\(month.monthValue)/\(dayValue)/\(month.currentYear)"
+        
+    }
+    
+    func grabDaysForDictionary() {
+        
+        for savedDay in previouslySavedDaysArray {
+            dayDictionary[savedDay.dateString!] = Day(month: Month(month: getMonthFromString(savedDay.dateString!), year: getYearFromString(savedDay.dateString!)), dayNumValue: getDayFromString(savedDay.dateString!), dayText: savedDay.savedText!)
+        }
+        
+    }
+    
+    func getMonthFromString(dateString: String) -> Int {
+        
+        let x = dateString.characters.indexOf("/")
+        return Int(dateString.substringToIndex(x!))!
+        
+    }
+    
+    func getDayFromString(dateString: String) -> Int {
+        
+        let indexOne = dateString.characters.indexOf("/")?.advancedBy(1)
+        let string = dateString.substringFromIndex(indexOne!)
+        let secondIndex = string.characters.indexOf("/")
+        return Int(String(string.substringToIndex(secondIndex!)))!
+        
+    }
+    
+    func getYearFromString(dateString: String) -> Int {
+        
+        let year = Int(String(dateString.characters.suffix(4)))
+        return year!
+        
     }
     
     
     func nextMonth() {
         
         /*
-        Action to switch the month to the next month
-        
-        How it works:
-        if the selected month value is 12, then it increments the year and sets the month to January
-        else it just increments the monthValue of the current month and reloads the data of the table reflect the change
-        
-        Latter half:
-        resets all of the cells to be deselected while saving the data if the cell was selected
-        **something to do in the future**
-        when changing the month, reset the text field to "Select a day to proceed"
-        
-        change the content size for the collectionView if the number of rows are not enough
-        Ex. August 2015 does not have enough cells currently
+            Action to switch the month to the next month
         */
+        
+        if (collectionView.indexPathsForSelectedItems()!.count != 0) {
+            let cell = collectionView.cellForItemAtIndexPath(collectionView.indexPathsForSelectedItems()![0]) as! CollectionViewCell
+            cell.dayRep.dayText = notepadTF.text ?? ""
+            if cell.dayRep.containsData() {
+                dayDictionary[cell.dayRep.getDescription()] = cell.dayRep
+            } else {
+                dayDictionary.removeValueForKey((cell.dayRep?.getDescription())!)
+            }
+        }
         
         if selectedMonth.monthValue == 12 {
             selectedMonth = Month(month: 1, year: selectedYear + 1)
@@ -433,23 +427,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         //        print(collectionView.intrinsicContentSize())
         self.title = selectedMonth.monthName + " " + String(selectedYear)
-        items = generateItemsArray(selectedMonth, selectedYear: selectedYear)
+        monthCollectionArray = generateItemsArray(selectedMonth, selectedYear: selectedYear)
         
-        //latter half starts here
-        for x in 0...items.count-1 {
-            let dest = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: x, inSection: 0)) as! CollectionViewCell
-            dest.selectionView.alpha = 0.0
-            let stringRep = String(dest.month.monthValue) + "/" + String(dest.label.text!) + "/" + String(dest.year)
-            if dest.selected {
-                textFieldData[stringRep] = notepadTF.text
-                
-                // Saves the data in the current selected cell when the nextMonth() button is pressed
-                saveDateData(stringRep, textDataToSave: notepadTF.text)
-                
-                dest.selected = false
-            }
-            collectionView.deselectItemAtIndexPath(NSIndexPath(forRow: x, inSection: 0), animated: false)
-        }
+        
+        collectionView.reloadData()
+        
         dateLabel.text = "Select a day"
         notepadTF.text = ""
         view.endEditing(true)
@@ -460,20 +442,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func lastMonth() {
         
         /*
-        Action to switch the month to the prior month
-        
-        How it works:
-        if the selected month value is 1, then it decrements the year and sets the month to December
-        else it just decrements the monthValue of the current month and reloads the data of the table reflect the change
-        
-        Latter half:
-        resets all of the cells to be deselected while saving the data if the cell was selected
-        **something to do in the future**
-        when changing the month, reset the text field to "Select a day to proceed"
-        
-        change the content size for the collectionView if the number of rows are not enough
-        Ex. August 2015 does not have enough cells currently
+            Action to switch the month to the prior month
         */
+        
+        if (collectionView.indexPathsForSelectedItems()!.count != 0) {
+            let cell = collectionView.cellForItemAtIndexPath(collectionView.indexPathsForSelectedItems()![0]) as! CollectionViewCell
+            cell.dayRep.dayText = notepadTF.text ?? ""
+            if cell.dayRep.containsData() {
+                dayDictionary[cell.dayRep.getDescription()] = cell.dayRep
+            } else {
+                dayDictionary.removeValueForKey((cell.dayRep?.getDescription())!)
+            }
+        }
         
         if selectedMonth.monthValue == 1 {
             selectedMonth = Month(month: 12, year: selectedYear - 1)
@@ -484,29 +464,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         //        print(collectionView.contentSize)
         self.title = selectedMonth.monthName + " " + String(selectedYear)
-        items = generateItemsArray(selectedMonth, selectedYear: selectedYear)
+        monthCollectionArray = generateItemsArray(selectedMonth, selectedYear: selectedYear)
+        collectionView.reloadData()
         
-        //latter half starts here
-//        print("Items array: \(items)")
-//        print("number of elements in items array \(items.count)")
-        for x in 0...items.count-1 {
-//            print("Final iteration crashed on \(x)")
-//            print(collectionView.numberOfItemsInSection(0))
-//            let checking = (collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: x, inSection: 0)) as! CollectionViewCell).label.text != "" ?? "did not correctly work"
-//            print("Label text: \(checking)")
-            let dest = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: x, inSection: 0)) as! CollectionViewCell
-            dest.selectionView.alpha = 0.0
-            let stringRep = String(dest.month.monthValue) + "/" + String(dest.label.text!) + "/" + String(dest.year)
-            if dest.selected == true {
-                textFieldData[stringRep] = notepadTF.text
-    
-                //Saves the data in the current selected cell when the user taps the lastMonth button
-                saveDateData(stringRep, textDataToSave: notepadTF.text)
-                
-                dest.selected = false
-            }
-            collectionView.deselectItemAtIndexPath(NSIndexPath(forRow: x, inSection: 0), animated: false)
-        }
         dateLabel.text = "Select a day"
         notepadTF.text = ""
         view.endEditing(true)
@@ -514,61 +474,31 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-    func saveDateData(date: String, textDataToSave: String) {
+    func saveDateData(day: Day) {
         
         /*
         Helper method that saves data to the corresponding [NSManagedObject]
         
         Parameters:
-            date:           String: A specified date in the form MM/DD/YYYY to be saved in the dataDatesArray
-            textDataToSave  String: A text field that is in any form to be saved in the dataTextArray
-
+        date:           String: A specified date in the form MM/DD/YYYY to be saved in the dataDatesArray
+        textDataToSave  String: A text field that is in any form to be saved in the dataTextArray
+        
         */
         
-        
-        //retureive the managed object context in the app delegate
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext
-        
         //add an item to the managed object context
-        let entity = NSEntityDescription.entityForName("Item", inManagedObjectContext: managedContext)
-        let secondEntity = NSEntityDescription.entityForName("ItemTwo", inManagedObjectContext: managedContext)
-        let item = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        let itemTwo = NSManagedObject(entity: secondEntity!, insertIntoManagedObjectContext: managedContext)
-        
+        let entity = NSEntityDescription.insertNewObjectForEntityForName("DayToSave", inManagedObjectContext: managedObjectContext) as! DayToSave
+        entity.savedText = day.dayText
+        entity.dateString = day.getDescription()
         //set the value for the item
         
         // searches dataDatesArray to see if there is a date in the array. Uncomment portion to  try and filter when to save and when not to save.
         
-//        var shouldAddDate = true
-//        for x in dataDatesArray {
-//            if (x.valueForKey("date") as! String) == date {
-//                print("Nested if statement ran")
-//                shouldAddDate = false
-//            }
-//        }
-//        if shouldAddDate {
-//            item.setValue(date, forKey: "date")
-//            
-//            //Save the managed object context back
-//            do {
-//                try managedContext.save()
-//            } catch {
-//                print("Did not save properly")
-//            }
-//        }
-        
-        // Saves the two values in their corresponding entities
-        item.setValue(date, forKey: "date")
-        itemTwo.setValue((textDataToSave ?? ""), forKey: "savedText")
-        
         //Save the managed object context back
         do {
-            try managedContext.save()
+            try managedObjectContext.save()
         } catch {
             print("Did not save properly")
         }
-        
     }
     
     
@@ -584,27 +514,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let managedObjectContext = appDelegate.managedObjectContext
         
         // Create a fetch request into Core Data
-        let fetchRequest = NSFetchRequest(entityName: "Item")
-        let fetchRequestTwo = NSFetchRequest(entityName: "ItemTwo")
+        let fetchRequest = NSFetchRequest(entityName: "DayToSave")
+        
+        let sortDescriptor = NSSortDescriptor.init(key: "dateString", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         
         // Execute the fetch request
         do {
             
             let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
-                if fetchedResults.count != 0 {
-                    dataDatesArray = fetchedResults
-                }
-        } catch {
-            print("could not fetch date data")
-        }
-        
-        do {
-            let fetchedResultsTwo = try managedObjectContext.executeFetchRequest(fetchRequestTwo) as! [NSManagedObject]
-            if fetchedResultsTwo.count != 0 {
-                dataTextArray = fetchedResultsTwo
+            if fetchedResults.count != 0 {
+                self.previouslySavedDaysArray = fetchedResults as! [DayToSave]
             }
         } catch {
-                print("Coult not fetch the text field data from Core Data")
+            print("could not fetch day data")
         }
         
     }
