@@ -6,16 +6,15 @@ This application is a cross between a calendar and a notepad. It allows you to s
 
 
 **TO BE IMPLEMENTED IN THE FUTURE:**
-- Improve CoreData object models to use less memory / space
-- Improve keyboard functionality so the user can move the application to background without glitching the app
-- Fix so that the user can quit immediately after editing while still saving the input (in keyboardWillDismiss method?)
+- Move constraints for months that don’t currently fit on the screen
 - Better design/appearance/color scheme
-- Fix months that have days that don’t fit in the current items array (move constraints or make scrollable)
-- Allow user to open emoji keyboard without glitching the app
 - Improve the date label
 - Detail view controller (Double tap maybe?)
 - Tags for days
-- When user taps same date after editing, deletes the data that was inputed. 
+
+- GLITCH: Allow user to open emoji keyboard without glitching the app
+- GLITCH: Improve keyboard functionality so the user can move the application to background without glitching the app
+- GLITCH: Fix so that the user can quit immediately after editing while still saving the input (in keyboardWillDismiss method?)
 
 **What I did**
 - Implemented a calendar view with correctly numbered days/correctly set days of the week
@@ -25,6 +24,13 @@ This application is a cross between a calendar and a notepad. It allows you to s
 - Swipe functionality
 - CoreData so the data can be saved when the application is closed 
 - Small icon that shows if a day contains information on a specified date
+
+- FIXED: Fix months that have days that don’t fit in the current items array (move constraints or make scrollable)
+- FIXED: When user taps same date after editing, deletes the data that was inputed. 
+- FIXED: Improve CoreData object models to use less memory / space
+
+
+
 
 **Contact**
 - Chris Sciavolino
