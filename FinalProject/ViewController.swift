@@ -27,12 +27,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var dayDictionary: [String : Day] = [:]
     var monthCollectionArray: [Day] = []
     
-    var dataDatesArray: [NSManagedObject] = [] //Storing Item entities. Item has an attribute called 'date'
-    // NSManagedObject: a single object stored in Core Data. Use, create, edut, save, and delete from Core Data persistent store
-    
-    var dataTextArray: [NSManagedObject] = []
-    
-    var textFieldData: [String: String] = [:]
+    var keyboardIsShowingAlready: Bool = false
     
     //flowlayout that formats the UICOllectionView
     lazy var flowLayout: UICollectionViewFlowLayout = {
@@ -192,16 +187,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         
         //following searches the dictionary for the key (date) to see if there is any text. Else, it makes it default
-        
-        // Saves the data when the cell is deselected
-        dest.dayRep.dayText = notepadTF.text ?? ""
-        if dest.dayRep.containsData() {
-            dayDictionary[dest.dayRep.getDescription()] = dest.dayRep
-            saveDateData(dest.dayRep)
-        } else {
-            dayDictionary.removeValueForKey((dest.dayRep?.getDescription())!)
-            // TODO: want to delete this Day from the context ***
-        }
+    
         
         //hasDataSelectionViewFormatting
         dest.hasDataSelectionView.layer.cornerRadius = dest.hasDataSelectionView.frame.width / 2.0
@@ -315,9 +301,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func keyboardWillShow(notif: NSNotification) {
         let info = notif.userInfo!
         let h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
-        bottomTextFieldConstraint.constant += h
-        topDateLabelConstraint.constant -= h
-        collectionView.alpha = 0.0
+        
+        if !keyboardIsShowingAlready {
+            bottomTextFieldConstraint.constant += h
+            topDateLabelConstraint.constant -= h
+            collectionView.alpha = 0.0
+            keyboardIsShowingAlready = true
+        }
         
     }
     
@@ -325,10 +315,29 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // Moved the notepadTF back down when the user dismisses the keyboard
     func keyboardWillHide(notif: NSNotification) {
         let info = notif.userInfo!
-        let h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
+        var h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
+        
+        if h != 225 {
+            //not using US English Keyboard therefore not correct keyboard size
+            h = 225
+        }
+        
         bottomTextFieldConstraint.constant -= h
         topDateLabelConstraint.constant += h
         collectionView.alpha = 1.0
+        keyboardIsShowingAlready = false
+        
+        let dest = collectionView.cellForItemAtIndexPath(collectionView.indexPathsForSelectedItems()![0]) as! CollectionViewCell
+        // Saves the data when the cell is deselected
+        dest.dayRep.dayText = notepadTF.text ?? ""
+        if dest.dayRep.containsData() {
+            dayDictionary[dest.dayRep.getDescription()] = dest.dayRep
+            saveDateData(dest.dayRep)
+        } else {
+            dayDictionary.removeValueForKey((dest.dayRep?.getDescription())!)
+            //removeObjectFromContext(dest.dayRep)
+            // TODO: want to delete this Day from the context ***
+        }
         
     }
     
@@ -523,6 +532,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         do {
             
             let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+            for x in fetchedResults {
+                print(x.description)
+            }
             if fetchedResults.count != 0 {
                 self.previouslySavedDaysArray = fetchedResults as! [DayToSave]
             }
@@ -532,6 +544,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
     }
     
+    
+    func removeObjectFromContext(day: Day) {
+        let dayToDelete: DayToSave = DayToSave(month: day.month, dayNumValue: day.dayNumValue, dayText: day.dayText)
+        managedObjectContext.deleteObject(dayToDelete)
+    }
     
     func deleteAllData(entity: String) {
         
