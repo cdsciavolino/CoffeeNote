@@ -16,6 +16,7 @@ This application is a cross between a calendar and a notepad. It allows you to s
 - GLITCH: Allow user to open emoji keyboard without glitching the app
 - GLITCH: Improve keyboard functionality so the user can move the application to background without glitching the app
 - GLITCH: Fix so that the user can quit immediately after editing while still saving the input (in keyboardWillDismiss method?)
+- GLITCH: Currently does not delete empty day objects in NSManagedObjectContext
 
 **What I did**
 - Implemented a calendar view with correctly numbered days/correctly set days of the week
