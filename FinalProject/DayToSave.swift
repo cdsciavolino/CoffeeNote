@@ -21,13 +21,13 @@ class DayToSave: NSManagedObject {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
-    init(month: Month, dayNumValue: Int, dayText: String?) {
-        
-        self.month = month
-        self.dayNumValue = dayNumValue
-        self.savedText = dayText ?? ""
-        self.dateString = "\(month.monthValue)/\(dayNumValue)/\(month.currentYear)"
-    }
+//    init(month: Month, dayNumValue: Int, dayText: String?) {
+//        super.init()
+//        self.month = month
+//        self.dayNumValue = dayNumValue
+//        self.savedText = dayText ?? ""
+//        self.dateString = "\(month.monthValue)/\(dayNumValue)/\(month.currentYear)"
+//    }
     
     func getDescription() -> String {
         return self.dateString!

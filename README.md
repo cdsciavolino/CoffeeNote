@@ -8,12 +8,11 @@ This application is a cross between a calendar and a notepad. It allows you to s
 **TO BE IMPLEMENTED IN THE FUTURE:**
 - Move constraints for months that don’t currently fit on the screen
 - Better design/appearance/color scheme
-- Improve the date label
-- Detail view controller (Double tap maybe?)
+- Detail view controller (Button in editing view? / change month layout?)
 - Tags for days
+- Settings tab
 
 **Current Identified Glitches**
-- GLITCH: Currently does not delete empty day objects in NSManagedObjectContext
 
 **What I did**
 - Implemented a calendar view with correctly numbered days/correctly set days of the week
@@ -31,8 +30,7 @@ This application is a cross between a calendar and a notepad. It allows you to s
 - FIXED: Allow user to open emoji keyboard without glitching the app
 - FIXED: Improve keyboard functionality so the user can move the application to background without glitching the app
 - FIXED: Fix so that the user can quit immediately after editing while still saving the input (in keyboardWillDismiss method?)
-
-
+- FIXED: Currently does not delete empty day objects in NSManagedObjectContext
 
 
 **Contact**

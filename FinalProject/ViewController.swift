@@ -15,13 +15,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var notepadTF: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var lastMonthBarButton: UIBarButtonItem!
+    @IBOutlet weak var nextMonthBarButton: UIBarButtonItem!
     @IBOutlet weak var bottomTextFieldConstraint: NSLayoutConstraint!
     @IBOutlet weak var topDateLabelConstraint: NSLayoutConstraint!
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    
-    //psuedo-days in month
-    var items: [String] = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
     
     var previouslySavedDaysArray: [DayToSave] = []
     var dayDictionary: [String : Day] = [:]
@@ -92,9 +90,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         //Setting up notifications when keyboard comes up/recedes
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.applicationWillResignActive(_:)), name: UIApplicationWillResignActiveNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardChanged(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
         
         //setting up calendar data
         let today = NSDate()
@@ -162,7 +164,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         dest.userInteractionEnabled = false
         
         selectedDay = dest.dayRep.dayNumValue
-
+        
         notepadTF.text = dest.dayRep.dayText
         notepadTF.font = notepadTF.font?.fontWithSize(18.0)
     }
@@ -187,7 +189,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         
         //following searches the dictionary for the key (date) to see if there is any text. Else, it makes it default
-    
+        
         
         //hasDataSelectionViewFormatting
         dest.hasDataSelectionView.layer.cornerRadius = dest.hasDataSelectionView.frame.width / 2.0
@@ -302,9 +304,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let info = notif.userInfo!
         let h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
         
+        self.title = "\(selectedMonth.monthName) \(selectedDay), \(selectedYear)"
+        dateLabel.text = "Tap to Save"
+        
+        lastMonthBarButton.enabled = false
+        nextMonthBarButton.enabled = false
+        lastMonthBarButton.title = ""
+        nextMonthBarButton.title = ""
+        
+        
+
         if !keyboardIsShowingAlready {
-            bottomTextFieldConstraint.constant += h
-            topDateLabelConstraint.constant -= h
+            bottomTextFieldConstraint.constant = 20 + h
+            topDateLabelConstraint.constant = 8 - h
             collectionView.alpha = 0.0
             keyboardIsShowingAlready = true
         }
@@ -315,17 +327,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // Moved the notepadTF back down when the user dismisses the keyboard
     func keyboardWillHide(notif: NSNotification) {
         let info = notif.userInfo!
-        var h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
-        
-        if h != 225 {
-            //not using US English Keyboard therefore not correct keyboard size
-            h = 225
-        }
+        let h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
         
         bottomTextFieldConstraint.constant -= h
         topDateLabelConstraint.constant += h
         collectionView.alpha = 1.0
         keyboardIsShowingAlready = false
+        
+        lastMonthBarButton.enabled = true
+        nextMonthBarButton.enabled = true
+        lastMonthBarButton.title = "Last Month"
+        nextMonthBarButton.title = "Next Month"
+        
+        self.title = "\(selectedMonth.monthName) \(selectedYear)"
+        dateLabel.text = "\(selectedMonth.monthName) \(selectedDay), \(selectedYear)"
         
         let dest = collectionView.cellForItemAtIndexPath(collectionView.indexPathsForSelectedItems()![0]) as! CollectionViewCell
         // Saves the data when the cell is deselected
@@ -335,20 +350,28 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             saveDateData(dest.dayRep)
         } else {
             dayDictionary.removeValueForKey((dest.dayRep?.getDescription())!)
+            //updateObjectFromContext(dest.dayRep)
             //removeObjectFromContext(dest.dayRep)
             // TODO: want to delete this Day from the context ***
         }
         
     }
     
+    func keyboardChanged(notif: NSNotification) {
+        let info = notif.userInfo!
+        let h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
+        bottomTextFieldConstraint.constant = h + 20
+        topDateLabelConstraint.constant = 8 - h
+    }
+    
     
     func generateItemsArray(selectedMonthData: Month, selectedYear: Int) -> [Day] {
         
         /*
-            PARAMETER           : TYPE      DESCRIPTION
+        PARAMETER           : TYPE      DESCRIPTION
         
-            selectedMonthData   : Month     Represents the current selected month to create array for
-            selectedYear        : Int       Represents the current selected year to create the array for
+        selectedMonthData   : Month     Represents the current selected month to create array for
+        selectedYear        : Int       Represents the current selected year to create the array for
         */
         
         var newItemsArray: [Day] = []
@@ -366,7 +389,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             let currentDayTextValue = dayDictionary[toDateForm(selectedMonthData, dayValue: counter)]?.dayText ?? ""
             let newDay: Day = Day(month: selectedMonthData, dayNumValue: counter, dayText: currentDayTextValue)
             newItemsArray.append(newDay)
-            counter++
+            counter += 1
         }
         
         return newItemsArray
@@ -414,7 +437,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func nextMonth() {
         
         /*
-            Action to switch the month to the next month
+        Action to switch the month to the next month
         */
         
         if (collectionView.indexPathsForSelectedItems()!.count != 0) {
@@ -451,7 +474,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func lastMonth() {
         
         /*
-            Action to switch the month to the prior month
+        Action to switch the month to the prior month
         */
         
         if (collectionView.indexPathsForSelectedItems()!.count != 0) {
@@ -532,9 +555,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         do {
             
             let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
-            for x in fetchedResults {
-                print(x.description)
-            }
             if fetchedResults.count != 0 {
                 self.previouslySavedDaysArray = fetchedResults as! [DayToSave]
             }
@@ -545,9 +565,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-    func removeObjectFromContext(day: Day) {
-        let dayToDelete: DayToSave = DayToSave(month: day.month, dayNumValue: day.dayNumValue, dayText: day.dayText)
-        managedObjectContext.deleteObject(dayToDelete)
+    func applicationWillResignActive(notif: NSNotification) {
+        //day dictionary
+        deleteAllData("DayToSave")
+        for string in dayDictionary.keys {
+            let entity = NSEntityDescription.insertNewObjectForEntityForName("DayToSave", inManagedObjectContext: managedObjectContext) as! DayToSave
+            entity.savedText = dayDictionary[string]!.dayText
+            entity.dateString = dayDictionary[string]!.getDescription()
+            managedObjectContext.insertObject(entity)
+        }
+        do {
+            try managedObjectContext.save()
+        } catch {
+            print("managed object context not properly saved")
+        }
     }
     
     func deleteAllData(entity: String) {

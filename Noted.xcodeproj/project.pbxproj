@@ -27,7 +27,7 @@
 		8355C3311C8A38C20050513D /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayCollectionViewCell.swift; sourceTree = "<group>"; };
 		8382837F1C0637C200F003CC /* Month.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
-		839111B81BFEAE94002721A2 /* FinalProjectV2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProjectV2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		839111B81BFEAE94002721A2 /* Noted.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noted.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		839111BB1BFEAE94002721A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		839111BD1BFEAE94002721A2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		839111C01BFEAE94002721A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		839111AF1BFEAE94002721A2 = {
 			isa = PBXGroup;
 			children = (
-				839111BA1BFEAE94002721A2 /* FinalProject */,
+				839111BA1BFEAE94002721A2 /* Noted */,
 				839111B91BFEAE94002721A2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -62,12 +62,12 @@
 		839111B91BFEAE94002721A2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				839111B81BFEAE94002721A2 /* FinalProjectV2.0.app */,
+				839111B81BFEAE94002721A2 /* Noted.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		839111BA1BFEAE94002721A2 /* FinalProject */ = {
+		839111BA1BFEAE94002721A2 /* Noted */ = {
 			isa = PBXGroup;
 			children = (
 				839111BB1BFEAE94002721A2 /* AppDelegate.swift */,
@@ -85,15 +85,16 @@
 				839111CA1BFEAE94002721A2 /* Info.plist */,
 				839111C21BFEAE94002721A2 /* FinalProject.xcdatamodeld */,
 			);
+			name = Noted;
 			path = FinalProject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		839111B71BFEAE94002721A2 /* FinalProjectV2.0 */ = {
+		839111B71BFEAE94002721A2 /* Noted */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "FinalProjectV2.0" */;
+			buildConfigurationList = 839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "Noted" */;
 			buildPhases = (
 				839111B41BFEAE94002721A2 /* Sources */,
 				839111B51BFEAE94002721A2 /* Frameworks */,
@@ -103,9 +104,9 @@
 			);
 			dependencies = (
 			);
-			name = FinalProjectV2.0;
+			name = Noted;
 			productName = FinalProject;
-			productReference = 839111B81BFEAE94002721A2 /* FinalProjectV2.0.app */;
+			productReference = 839111B81BFEAE94002721A2 /* Noted.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -124,7 +125,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "FinalProjectV2.0" */;
+			buildConfigurationList = 839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "Noted" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -137,7 +138,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				839111B71BFEAE94002721A2 /* FinalProjectV2.0 */,
+				839111B71BFEAE94002721A2 /* Noted */,
 			);
 		};
 /* End PBXProject section */
@@ -286,7 +287,7 @@
 				INFOPLIST_FILE = FinalProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ChrisSciavolino.FinalProject;
-				PRODUCT_NAME = FinalProjectV2.0;
+				PRODUCT_NAME = Noted;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -300,7 +301,7 @@
 				INFOPLIST_FILE = FinalProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ChrisSciavolino.FinalProject;
-				PRODUCT_NAME = FinalProjectV2.0;
+				PRODUCT_NAME = Noted;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -308,7 +309,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "FinalProjectV2.0" */ = {
+		839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "Noted" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				839111CB1BFEAE94002721A2 /* Debug */,
@@ -317,7 +318,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "FinalProjectV2.0" */ = {
+		839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "Noted" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				839111CE1BFEAE94002721A2 /* Debug */,
