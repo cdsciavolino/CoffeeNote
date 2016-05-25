@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  FinalProject
+//  Noted
 //
 //  Created by Chris Sciavolino on 11/19/15.
 //  Copyright © 2015 Chris Sciavolino. All rights reserved.
@@ -11,21 +11,21 @@ import CoreData
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate {
     
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var notepadTF: UITextView!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var lastMonthBarButton: UIBarButtonItem!
-    @IBOutlet weak var nextMonthBarButton: UIBarButtonItem!
-    @IBOutlet weak var bottomTextFieldConstraint: NSLayoutConstraint!
-    @IBOutlet weak var topDateLabelConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionView: UICollectionView!                //Connection to the upper calendar
+    @IBOutlet weak var notepadTF: UITextView!                           //Connection to the lower notepad
+    @IBOutlet weak var dateLabel: UILabel!                              //Connection to the middle label with the date
+    @IBOutlet weak var lastMonthButton: UIButton!                       //Connection to the "Last Month" button
+    @IBOutlet weak var nextMonthButton: UIButton!                       //Connection to the "Next Month" button
+    @IBOutlet weak var bottomTextFieldConstraint: NSLayoutConstraint!   //Connection to the bottom constraint on the notepad
+    @IBOutlet weak var topDateLabelConstraint: NSLayoutConstraint!      //Connection to the upper constrain on the date label
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
-    var previouslySavedDaysArray: [DayToSave] = []
-    var dayDictionary: [String : Day] = [:]
-    var monthCollectionArray: [Day] = []
+    var previouslySavedDaysArray: [DayToSave] = []      //Create an array to hold all the NSManagedObjects pulled from CoreData
+    var dayDictionary: [String : Day] = [:]             //Create a dictionary to handle each of the date - Day pairs to save
+    var monthCollectionArray: [Day] = []                //Create an array of Days to be handled by the collectionView
     
-    var keyboardIsShowingAlready: Bool = false
+    var keyboardIsShowingAlready: Bool = false          //Bool to help with keyboardWillShow and KeyboardWillHide methods
     
     //flowlayout that formats the UICOllectionView
     lazy var flowLayout: UICollectionViewFlowLayout = {
@@ -48,33 +48,41 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let month = calendar!.components(.Month, fromDate: todays).month
         let year = calendar!.components(.Year, fromDate: todays).year
         return "\(month)/\(day)/\(year)"
-        
-        
     }()
     
     lazy var selectedDay: Int = {
+        /*  
+         Int value of the currently selected day.
+         *** Cannot be used if a day is not selected in the calendar view ***
+        */
+        
         let today = NSDate()
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let day = calendar!.components(.Day, fromDate: today)
         return day.day
-        
     }()
     
     lazy var selectedYear: Int = {
+        /*
+         Int value of the currently selected year.
+        */
+        
         let today = NSDate()
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let year = calendar!.components(.Year, fromDate: today)
         return year.year
-        
     }()
     
     lazy var selectedMonth: Month = {
+        /*
+         Int value of the currently selected month.
+        */
+        
         let today = NSDate()
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let month = calendar!.components(.Month, fromDate: today)
         let year = calendar!.components(.Year, fromDate: today)
         return Month(month: month.month, year: year.year)
-        
     }()
     
     
@@ -134,11 +142,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-    override func viewDidAppear(animated: Bool) {
-        notepadTF.textColor = UIColor.whiteColor()
-    }
-    
-    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
         //creates unique sizes for each cell
@@ -151,10 +154,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        //method that runs this code when a certain cell is selected
+        /* 
+         Method is called whenever the user taps a valid cell in the calendar.
+        */
         
         let dest = collectionView.cellForItemAtIndexPath(indexPath) as! CollectionViewCell
-        notepadTF.editable = true
+        notepadTF.editable = true       //make the text field selectable and editable to add data to the day
         notepadTF.selectable = true
         dest.selectionView.alpha = 0.8
         dateLabel.text = "\(dest.dayRep.month.monthName) \(dest.label.text!), \(dest.dayRep.month.currentYear)"
@@ -203,7 +208,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         //formats and fills each cell according to the class CollectionViewCell
-        //        print("setting up cells")
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CollectionViewCell
         cell.selected = false
         cell.selectionView.alpha = 0.0
@@ -213,11 +217,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         } else {
             cell.label.text = String(cell.dayRep.dayNumValue)
         }
-        
+        //
+        //Formats the selectionView circle to show up for selected day
         cell.selectionView.backgroundColor = UIColor.orangeColor()
         cell.selectionView.layer.cornerRadius = cell.frame.width / 2.0
         cell.label.textColor = UIColor.whiteColor()
         cell.hasDataSelectionView.layer.cornerRadius = cell.hasDataSelectionView.frame.width / 2.0
+        //If the selectedDay is today, then retain the today color
         if cell.dayRep.getDescription() == todayStringValue {
             cell.selectionView.backgroundColor = UIColor(red: 138/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1.0)
             cell.selectionView.alpha = 0.8
@@ -229,12 +235,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         } else {
             cell.userInteractionEnabled = true
         }
+        //
         
-        //hasDataSelectionView Formatting
+        //Small dot above date if the day contains data formatting
         cell.hasDataSelectionView.alpha = 0.0
         if cell.dayRep.containsData() {
             cell.hasDataSelectionView.alpha = 0.8
         }
+        //
+        
         return cell
     }
     
@@ -268,13 +277,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     
     //Calls lastMonth() helper method
-    @IBAction func lastMonthButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func lastMonthButtonPressed(sender: UIButton) {
         lastMonth()
     }
     
     
     //Calls nextMonth() helper method
-    @IBAction func nextMonthButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func nextMonthButtonPressed(sender: UIButton) {
         nextMonth()
     }
     
@@ -307,10 +316,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.title = "\(selectedMonth.monthName) \(selectedDay), \(selectedYear)"
         dateLabel.text = "Tap to Save"
         
-        lastMonthBarButton.enabled = false
-        nextMonthBarButton.enabled = false
-        lastMonthBarButton.title = ""
-        nextMonthBarButton.title = ""
+        lastMonthButton.enabled = false
+        nextMonthButton.enabled = false
+        lastMonthButton.alpha = 0.0
+        nextMonthButton.alpha = 0.0
         
         
 
@@ -334,10 +343,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.alpha = 1.0
         keyboardIsShowingAlready = false
         
-        lastMonthBarButton.enabled = true
-        nextMonthBarButton.enabled = true
-        lastMonthBarButton.title = "Last Month"
-        nextMonthBarButton.title = "Next Month"
+        lastMonthButton.enabled = true
+        nextMonthButton.enabled = true
+        lastMonthButton.alpha = 1.0
+        nextMonthButton.alpha = 1.0
         
         self.title = "\(selectedMonth.monthName) \(selectedYear)"
         dateLabel.text = "\(selectedMonth.monthName) \(selectedDay), \(selectedYear)"
@@ -410,6 +419,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
     }
     
+    
+    /*
+     takes in a string in the form MM/DD/YYYY and returns the MM portiom
+     
+     Precondition: dateString must be in the form MM/DD/YYYY
+     */
     func getMonthFromString(dateString: String) -> Int {
         
         let x = dateString.characters.indexOf("/")
@@ -417,6 +432,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
     }
     
+    /*
+     takes in a string in the form MM/DD/YYYY and returns the DD portiom
+     
+     Precondition: dateString must be in the form MM/DD/YYYY
+    */
     func getDayFromString(dateString: String) -> Int {
         
         let indexOne = dateString.characters.indexOf("/")?.advancedBy(1)
@@ -426,6 +446,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
     }
     
+    /*
+     takes in a string in the form MM/DD/YYYY and returns the YYYY portiom
+     
+     Precondition: dateString must be in the form MM/DD/YYYY
+     */
     func getYearFromString(dateString: String) -> Int {
         
         let year = Int(String(dateString.characters.suffix(4)))
@@ -466,6 +491,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         dateLabel.text = "Select a day"
         notepadTF.text = ""
+        notepadTF.editable = false
+        notepadTF.selectable = false
         view.endEditing(true)
         collectionView.reloadData()
     }
@@ -501,6 +528,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         dateLabel.text = "Select a day"
         notepadTF.text = ""
+        notepadTF.editable = false
+        notepadTF.selectable = false
         view.endEditing(true)
         collectionView.reloadData()
     }
@@ -584,7 +613,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func deleteAllData(entity: String) {
         
         /*
-        Helper method that is currently not being called anywhere in the above code.
         Deletes all data within the CoreData stack
         */
         

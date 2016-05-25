@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kNk-2U-qVQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kNk-2U-qVQ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -31,8 +31,31 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Q2-0R-MRc">
+                                <rect key="frame" x="0.0" y="185" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="eoL-FC-oa2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="&lt;">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="lastMonthButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pA8-jJ-Dhd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xgh-cr-J88">
+                                <rect key="frame" x="570" y="185" width="30" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="&gt;">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextMonthButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Xi-pZ-Ujr"/>
+                                </connections>
+                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Kh3-4A-IXX">
-                                <rect key="frame" x="20" y="72" width="560" height="285"/>
+                                <rect key="frame" x="25" y="72" width="548" height="285"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="285" id="vz3-cW-jth"/>
                                 </constraints>
@@ -61,7 +84,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gfQ-O2-ykR">
-                                                    <rect key="frame" x="22.5" y="6" width="5" height="5"/>
+                                                    <rect key="frame" x="22" y="6" width="5" height="5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="5" id="G9X-Cc-alJ"/>
@@ -91,7 +114,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="scaleToFill" reuseIdentifier="Header" id="ubq-Iw-pUZ" customClass="WeekdayCollectionReusableView" customModule="Noted" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="560" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="548" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DG6-Ux-GwW">
@@ -135,9 +158,9 @@
                                     <color key="backgroundColor" red="0.4392156862745098" green="0.4392156862745098" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="DG6-Ux-GwW" firstAttribute="leading" secondItem="ubq-Iw-pUZ" secondAttribute="leadingMargin" constant="-8" id="8LO-2l-fKX"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="DG6-Ux-GwW" secondAttribute="trailing" constant="-8" id="9gy-a5-VZp"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="DG6-Ux-GwW" secondAttribute="trailing" constant="-20" id="9gy-a5-VZp"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="DG6-Ux-GwW" secondAttribute="bottom" constant="-8" id="LDQ-dH-l8o"/>
-                                        <constraint firstItem="DG6-Ux-GwW" firstAttribute="centerX" secondItem="ubq-Iw-pUZ" secondAttribute="centerX" id="Ta6-os-58o"/>
+                                        <constraint firstItem="DG6-Ux-GwW" firstAttribute="centerX" secondItem="ubq-Iw-pUZ" secondAttribute="centerX" constant="6" id="Ta6-os-58o"/>
                                         <constraint firstItem="DG6-Ux-GwW" firstAttribute="centerY" secondItem="ubq-Iw-pUZ" secondAttribute="centerY" id="seA-VD-Qsf"/>
                                         <constraint firstItem="DG6-Ux-GwW" firstAttribute="top" secondItem="ubq-Iw-pUZ" secondAttribute="topMargin" constant="-8" id="thK-Ef-t6L"/>
                                     </constraints>
@@ -150,43 +173,37 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="2Q2-0R-MRc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="121" id="4hi-eK-l4h"/>
+                            <constraint firstItem="2Q2-0R-MRc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="7NU-gO-2mj"/>
                             <constraint firstItem="Ryo-Js-eC8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="97f-Ot-ETa"/>
                             <constraint firstItem="Ryo-Js-eC8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FBT-mz-4Z3"/>
                             <constraint firstItem="Ryo-Js-eC8" firstAttribute="top" secondItem="Kh3-4A-IXX" secondAttribute="bottom" constant="8" id="Ga7-no-haS"/>
                             <constraint firstItem="CSj-Kr-Pem" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OvX-9Q-2dx"/>
-                            <constraint firstItem="Kh3-4A-IXX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VoM-JW-dTl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Xgh-cr-J88" secondAttribute="trailing" constant="-20" id="Uuz-UC-w1z"/>
+                            <constraint firstItem="Kh3-4A-IXX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-1" id="VoM-JW-dTl"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="CSj-Kr-Pem" secondAttribute="bottom" constant="20" id="b3J-fZ-Qyo"/>
-                            <constraint firstItem="Kh3-4A-IXX" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ejS-wI-Ua0"/>
+                            <constraint firstItem="Kh3-4A-IXX" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-7" id="ejS-wI-Ua0"/>
+                            <constraint firstItem="Xgh-cr-J88" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="121" id="exI-7g-Jnv"/>
                             <constraint firstItem="CSj-Kr-Pem" firstAttribute="top" secondItem="Ryo-Js-eC8" secondAttribute="bottom" constant="8" id="fj6-aE-qgW"/>
-                            <constraint firstItem="Kh3-4A-IXX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="i2o-OP-XVY"/>
+                            <constraint firstItem="Kh3-4A-IXX" firstAttribute="leading" secondItem="2Q2-0R-MRc" secondAttribute="trailing" constant="-5" id="lPo-m6-geG"/>
                             <constraint firstItem="CSj-Kr-Pem" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="mvB-8l-bwe"/>
                             <constraint firstItem="CSj-Kr-Pem" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="pYg-kB-SZ9"/>
                             <constraint firstItem="Ryo-Js-eC8" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="qXy-iw-fnX"/>
                             <constraint firstItem="Kh3-4A-IXX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="wgJ-Ig-z3Z"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Kh3-4A-IXX" secondAttribute="trailing" constant="7" id="zai-fA-BFp"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="DDS-zJ-03c" appends="YES" id="MEq-iT-b10"/>
                             <outletCollection property="gestureRecognizers" destination="eed-uo-nVE" appends="YES" id="6oq-QP-8Ae"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="&lt;Month&gt; &lt;Day&gt;, &lt;Year&gt;" id="71P-TP-HYp">
-                        <barButtonItem key="leftBarButtonItem" title="Last Month" id="CR4-xP-ly6">
-                            <connections>
-                                <action selector="lastMonthButtonPressed:" destination="BYZ-38-t0r" id="Yk1-XA-yxC"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Next Month" id="rer-7F-33v">
-                            <connections>
-                                <action selector="nextMonthButtonPressed:" destination="BYZ-38-t0r" id="Jtf-Gj-PRK"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="&lt;Month&gt; &lt;Day&gt;, &lt;Year&gt;" id="71P-TP-HYp"/>
                     <connections>
                         <outlet property="bottomTextFieldConstraint" destination="b3J-fZ-Qyo" id="yFi-YO-7zs"/>
                         <outlet property="collectionView" destination="Kh3-4A-IXX" id="oPl-YY-VSu"/>
                         <outlet property="dateLabel" destination="Ryo-Js-eC8" id="g5X-26-0AE"/>
-                        <outlet property="lastMonthBarButton" destination="CR4-xP-ly6" id="fRE-cx-Nxr"/>
-                        <outlet property="nextMonthBarButton" destination="rer-7F-33v" id="gZp-nM-Da0"/>
+                        <outlet property="lastMonthButton" destination="2Q2-0R-MRc" id="Zs5-Qp-T4K"/>
+                        <outlet property="nextMonthButton" destination="Xgh-cr-J88" id="GGl-Mi-yEb"/>
                         <outlet property="notepadTF" destination="CSj-Kr-Pem" id="Vp6-Wr-bMk"/>
                         <outlet property="topDateLabelConstraint" destination="Ga7-no-haS" id="uHl-WU-cjD"/>
                     </connections>
