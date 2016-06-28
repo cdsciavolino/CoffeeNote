@@ -14,10 +14,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var collectionView: UICollectionView!                //Connection to the upper calendar
     @IBOutlet weak var notepadTF: UITextView!                           //Connection to the lower notepad
     @IBOutlet weak var dateLabel: UILabel!                              //Connection to the middle label with the date
+    
+    //**GLITCH** Currently changes color back to original when data inputed to any given day
     @IBOutlet weak var lastMonthButton: UIButton!                       //Connection to the "Last Month" button
     @IBOutlet weak var nextMonthButton: UIButton!                       //Connection to the "Next Month" button
     @IBOutlet weak var bottomTextFieldConstraint: NSLayoutConstraint!   //Connection to the bottom constraint on the notepad
     @IBOutlet weak var topDateLabelConstraint: NSLayoutConstraint!      //Connection to the upper constrain on the date label
+    @IBOutlet weak var settingsBarButton: UIBarButtonItem!              //Connection to the "Settings" Bar Button
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
@@ -26,6 +29,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var monthCollectionArray: [Day] = []                //Create an array of Days to be handled by the collectionView
     
     var keyboardIsShowingAlready: Bool = false          //Bool to help with keyboardWillShow and KeyboardWillHide methods
+    
+    let DEFAULT_COLOR_SCHEME: ColorScheme = ColorScheme.darkGreyScheme()
+    
+    lazy var currentColorScheme: ColorScheme = {
+        var colorScheme: ColorScheme = ColorScheme.darkBlueScheme()
+        return colorScheme
+    }()
+
     
     //flowlayout that formats the UICOllectionView
     lazy var flowLayout: UICollectionViewFlowLayout = {
@@ -85,6 +96,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return Month(month: month.month, year: year.year)
     }()
     
+    override func viewDidAppear(animated: Bool) {
+        self.view.backgroundColor = currentColorScheme.backGroundColor
+        notepadTF.backgroundColor = currentColorScheme.secondaryColor
+        dateLabel.backgroundColor = currentColorScheme.secondaryColor
+        dateLabel.textColor = currentColorScheme.textColor
+        notepadTF.textColor = currentColorScheme.textColor
+        
+        self.navigationController?.navigationBar.backgroundColor = currentColorScheme.navigationBarColor
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentColorScheme.textColor]
+        settingsBarButton.tintColor = currentColorScheme.textColor
+        nextMonthButton.titleLabel?.textColor = currentColorScheme.textColor
+        lastMonthButton.titleLabel?.textColor = currentColorScheme.textColor
+    }
     
     
     override func viewDidLoad() {
@@ -116,12 +140,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         monthCollectionArray = generateItemsArray(Month(month: currentMonthData.monthValue, year: selectedYear), selectedYear: (year?.year)!)
         
-        //initializes values
-        self.view.backgroundColor = UIColor(red: 0.43922, green: 0.43922, blue: 0.43922, alpha: 0.8)
-        notepadTF.backgroundColor = UIColor(red: 0.43922, green: 0.43922, blue: 0.43922, alpha: 0.8)
-        dateLabel.backgroundColor = UIColor(red: 0.43922, green: 0.43922, blue: 0.43922, alpha: 0.8)
-        dateLabel.textColor = UIColor.whiteColor()
-        notepadTF.textColor = UIColor.whiteColor()
+        //initializes values and colors
+        self.view.backgroundColor = currentColorScheme.backGroundColor
+        notepadTF.backgroundColor = currentColorScheme.secondaryColor
+        dateLabel.backgroundColor = currentColorScheme.secondaryColor
+        dateLabel.textColor = currentColorScheme.textColor
+        notepadTF.textColor = currentColorScheme.textColor
+        
+        self.navigationController?.navigationBar.backgroundColor = currentColorScheme.navigationBarColor
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentColorScheme.textColor]
+        settingsBarButton.tintColor = currentColorScheme.textColor
+        nextMonthButton.tintColor = currentColorScheme.textColor
+        lastMonthButton.tintColor = currentColorScheme.textColor
+        
+        
         
         self.title = "\(currentMonthData.monthName) \(year!.year)"
         dateLabel.text = "\(currentMonthData.monthName) \(day.day), \(year!.year)"
@@ -136,7 +168,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.bounces = true
         collectionView.alwaysBounceVertical = true
         collectionView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
-        collectionView.backgroundColor = UIColor(red: 0.43922, green: 0.43922, blue: 0.43922, alpha: 0.8)
+        collectionView.backgroundColor = currentColorScheme.secondaryColor
         flowLayout.headerReferenceSize = CGSizeMake(self.collectionView.frame.size.width, 35)
         //what we had before autolayout; given a frame, expand the view to fit into new frame
     }
@@ -189,7 +221,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         view.endEditing(true)
         
         if dest.dayRep.getDescription() == todayStringValue {
-            dest.selectionView.backgroundColor = UIColor(red: 138/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1.0)
+            dest.selectionView.backgroundColor = currentColorScheme.currentDayColor
             dest.selectionView.alpha = 0.8
         }
         
@@ -219,13 +251,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         //
         //Formats the selectionView circle to show up for selected day
-        cell.selectionView.backgroundColor = UIColor.orangeColor()
+        cell.selectionView.backgroundColor = currentColorScheme.selectedDayColor
         cell.selectionView.layer.cornerRadius = cell.frame.width / 2.0
-        cell.label.textColor = UIColor.whiteColor()
+        cell.label.textColor = currentColorScheme.textColor
         cell.hasDataSelectionView.layer.cornerRadius = cell.hasDataSelectionView.frame.width / 2.0
+        cell.hasDataSelectionView.backgroundColor = currentColorScheme.textColor
         //If the selectedDay is today, then retain the today color
         if cell.dayRep.getDescription() == todayStringValue {
-            cell.selectionView.backgroundColor = UIColor(red: 138/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1.0)
+            cell.selectionView.backgroundColor = currentColorScheme.currentDayColor
             cell.selectionView.alpha = 0.8
         }
         
@@ -263,6 +296,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "Header", forIndexPath: indexPath) as! WeekdayCollectionReusableView
         view.weekdayCollectionView.delegate = view.self
         view.weekdayCollectionView.dataSource = view.self
+        view.backgroundColor = currentColorScheme.secondaryColor
+        view.colorScheme = currentColorScheme
         return view
     }
     
@@ -347,6 +382,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         nextMonthButton.enabled = true
         lastMonthButton.alpha = 1.0
         nextMonthButton.alpha = 1.0
+        lastMonthButton.titleLabel?.textColor = currentColorScheme.textColor
+        nextMonthButton.titleLabel?.textColor = currentColorScheme.textColor
         
         self.title = "\(selectedMonth.monthName) \(selectedYear)"
         dateLabel.text = "\(selectedMonth.monthName) \(selectedDay), \(selectedYear)"
@@ -419,6 +456,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "SettingsSegue" {
+            print("ran this method")
+            let settingsViewController = segue.destinationViewController as! SettingsViewController
+            settingsViewController.colorScheme = currentColorScheme
+        }
+    }
+    
     
     /*
      takes in a string in the form MM/DD/YYYY and returns the MM portiom
@@ -456,6 +501,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let year = Int(String(dateString.characters.suffix(4)))
         return year!
         
+    }
+    
+    /* returns the currentColorScheme for the application*/
+    func getCurrentColorScheme() -> ColorScheme {
+        return currentColorScheme
     }
     
     
