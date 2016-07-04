@@ -17,7 +17,7 @@ class ColorScheme: NSObject {
     var navigationBarColor: UIColor
     var currentDayColor: UIColor
     var selectedDayColor: UIColor
-    
+        
     override init() {
         backGroundColor = UIColor.blackColor()
         textColor = UIColor.blackColor()
@@ -60,6 +60,4 @@ class ColorScheme: NSObject {
             name: "Ocean Blue")
     }
     
-    // secCol: UIColor(red: 57/255.0, green: 94/255.0, blue: 130/255.0, alpha: 1.0)
-
 }

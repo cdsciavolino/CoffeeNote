@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate, SettingsUpdatedDeletage {
     
     @IBOutlet weak var collectionView: UICollectionView!                //Connection to the upper calendar
     @IBOutlet weak var notepadTF: UITextView!                           //Connection to the lower notepad
@@ -31,9 +31,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var keyboardIsShowingAlready: Bool = false          //Bool to help with keyboardWillShow and KeyboardWillHide methods
     
     let DEFAULT_COLOR_SCHEME: ColorScheme = ColorScheme.darkGreyScheme()
+    let COLOR_SCHEMES_ARRAY: [String : ColorScheme] =
+        [ColorScheme.darkGreyScheme().colorSchemeName : ColorScheme.darkGreyScheme(),
+         ColorScheme.darkBlueScheme().colorSchemeName : ColorScheme.darkBlueScheme()]
     
     lazy var currentColorScheme: ColorScheme = {
-        var colorScheme: ColorScheme = ColorScheme.darkBlueScheme()
+        let COLOR_SCHEMES_ARRAY: [String : ColorScheme] =
+            [ColorScheme.darkGreyScheme().colorSchemeName : ColorScheme.darkGreyScheme(),
+             ColorScheme.darkBlueScheme().colorSchemeName : ColorScheme.darkBlueScheme()]
+        
+        var colorSchemeName = NSUserDefaults.standardUserDefaults().objectForKey("ColorSchemeName") as? String ?? ColorScheme.darkGreyScheme().colorSchemeName
+        var colorScheme: ColorScheme = COLOR_SCHEMES_ARRAY[colorSchemeName]!
+        
         return colorScheme
     }()
 
@@ -103,6 +112,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         dateLabel.textColor = currentColorScheme.textColor
         notepadTF.textColor = currentColorScheme.textColor
         
+        collectionView.backgroundColor = currentColorScheme.secondaryColor
+        
         self.navigationController?.navigationBar.backgroundColor = currentColorScheme.navigationBarColor
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentColorScheme.textColor]
         settingsBarButton.tintColor = currentColorScheme.textColor
@@ -129,6 +140,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.applicationWillResignActive(_:)), name: UIApplicationWillResignActiveNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardChanged(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.applicationDidEnterBackground(_:)), name: UIApplicationDidEnterBackgroundNotification, object: nil)
         
         //setting up calendar data
         let today = NSDate()
@@ -275,7 +288,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if cell.dayRep.containsData() {
             cell.hasDataSelectionView.alpha = 0.8
         }
-        //
+        
+        cell.backgroundColor = currentColorScheme.secondaryColor
         
         return cell
     }
@@ -292,12 +306,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
         //formats and develops the current header view
-        
         let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "Header", forIndexPath: indexPath) as! WeekdayCollectionReusableView
         view.weekdayCollectionView.delegate = view.self
         view.weekdayCollectionView.dataSource = view.self
         view.backgroundColor = currentColorScheme.secondaryColor
         view.colorScheme = currentColorScheme
+        view.weekdayCollectionView.reloadData()
         return view
     }
     
@@ -458,9 +472,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "SettingsSegue" {
-            print("ran this method")
             let settingsViewController = segue.destinationViewController as! SettingsViewController
             settingsViewController.colorScheme = currentColorScheme
+            settingsViewController.delegate = self
         }
     }
     
@@ -582,6 +596,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         notepadTF.selectable = false
         view.endEditing(true)
         collectionView.reloadData()
+    }
+    
+    func settingsHaveBeenUpdated(updatedColorScheme: ColorScheme) {
+        currentColorScheme = updatedColorScheme
+        viewDidAppear(false)
+        collectionView.reloadData()
+        
+    }
+    
+    
+    func applicationDidEnterBackground(notif: NSNotification) {
+        NSUserDefaults.standardUserDefaults().setObject(currentColorScheme.colorSchemeName, forKey: "ColorSchemeName")
     }
     
     

@@ -8,14 +8,21 @@
 
 import UIKit
 
+protocol ColorSchemeChosenDelegate {
+    func colorSchemeHasBeenChosen(chosenColorScheme: ColorScheme)
+}
+
 class ColorSchemeEditorTableViewController: UITableViewController {
 
     let colorSchemeArray: [ColorScheme] = [ColorScheme.darkGreyScheme(), ColorScheme.darkBlueScheme()]
     
     var curColorScheme: ColorScheme!
     
+    var delegate: ColorSchemeChosenDelegate? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -24,8 +31,9 @@ class ColorSchemeEditorTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         self.view.backgroundColor = curColorScheme.backGroundColor
+        self.navigationController?.navigationBar.backgroundColor = curColorScheme.navigationBarColor
         
     }
 
@@ -58,50 +66,19 @@ class ColorSchemeEditorTableViewController: UITableViewController {
         
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        curColorScheme = colorSchemeArray[indexPath.row]
+        viewWillAppear(false)
+        tableView.reloadData()
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    
+    override func viewWillDisappear(animated: Bool) {
+        if (delegate != nil) {
+            delegate?.colorSchemeHasBeenChosen(curColorScheme)
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
