@@ -22,6 +22,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var topDateLabelConstraint: NSLayoutConstraint!      //Connection to the upper constrain on the date label
     @IBOutlet weak var settingsBarButton: UIBarButtonItem!              //Connection to the "Settings" Bar Button
     
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     var previouslySavedDaysArray: [DayToSave] = []      //Create an array to hold all the NSManagedObjects pulled from CoreData
@@ -107,12 +109,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidAppear(animated: Bool) {
         self.view.backgroundColor = currentColorScheme.backGroundColor
-        notepadTF.backgroundColor = currentColorScheme.secondaryColor
-        dateLabel.backgroundColor = currentColorScheme.secondaryColor
-        dateLabel.textColor = currentColorScheme.textColor
-        notepadTF.textColor = currentColorScheme.textColor
         
-        collectionView.backgroundColor = currentColorScheme.secondaryColor
+        notepadTF.backgroundColor = currentColorScheme.backGroundColor
+        notepadTF.textColor = currentColorScheme.textColor
+        notepadTF.layer.borderColor = currentColorScheme.secondaryColor.CGColor
+        notepadTF.layer.cornerRadius = 5
+        notepadTF.layer.borderWidth = 3
+        
+
+        dateLabel.backgroundColor = currentColorScheme.backGroundColor
+        dateLabel.textColor = currentColorScheme.textColor
+        
+        collectionView.backgroundColor = currentColorScheme.backGroundColor
         
         self.navigationController?.navigationBar.backgroundColor = currentColorScheme.navigationBarColor
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentColorScheme.textColor]
@@ -217,6 +225,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         notepadTF.text = dest.dayRep.dayText
         notepadTF.font = notepadTF.font?.fontWithSize(18.0)
+        
     }
     
     
@@ -247,6 +256,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if dest.dayRep.containsData() {
             dest.hasDataSelectionView.alpha = 0.8
         }
+        
     }
     
     
@@ -289,7 +299,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             cell.hasDataSelectionView.alpha = 0.8
         }
         
-        cell.backgroundColor = currentColorScheme.secondaryColor
+        cell.backgroundColor = currentColorScheme.backGroundColor
         
         return cell
     }
@@ -309,7 +319,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "Header", forIndexPath: indexPath) as! WeekdayCollectionReusableView
         view.weekdayCollectionView.delegate = view.self
         view.weekdayCollectionView.dataSource = view.self
-        view.backgroundColor = currentColorScheme.secondaryColor
+        view.backgroundColor = currentColorScheme.backGroundColor
         view.colorScheme = currentColorScheme
         view.weekdayCollectionView.reloadData()
         return view
@@ -379,6 +389,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             keyboardIsShowingAlready = true
         }
         
+        collectionViewHeightConstraint.constant = CGFloat(285)
+
+        
     }
     
     
@@ -410,9 +423,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             saveDateData(dest.dayRep)
         } else {
             dayDictionary.removeValueForKey((dest.dayRep?.getDescription())!)
-            //updateObjectFromContext(dest.dayRep)
-            //removeObjectFromContext(dest.dayRep)
-            // TODO: want to delete this Day from the context ***
+        }
+        
+        if(dest.dayRep.month.firstDayInMonth == 5 && dest.dayRep.month.numDaysInMonth == 31) {
+            print("ran one")
+            collectionViewHeightConstraint.constant += CGFloat(50)
+        }
+        else if(dest.dayRep.month.firstDayInMonth == 6 && dest.dayRep.month.numDaysInMonth >= 30) {
+            collectionViewHeightConstraint.constant += CGFloat(50)
         }
         
     }
@@ -436,6 +454,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         var newItemsArray: [Day] = []
         var counter = 1
+        let CELL_HEIGHT = 50
+        let ORIGINAL_CV_HEIGHT = 285
         
         if selectedMonthData.firstDayInMonth != 0 {
             for _ in 0 ... selectedMonthData.firstDayInMonth - 1 {
@@ -450,6 +470,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             let newDay: Day = Day(month: selectedMonthData, dayNumValue: counter, dayText: currentDayTextValue)
             newItemsArray.append(newDay)
             counter += 1
+        }
+        
+        if(selectedMonthData.firstDayInMonth == 6) {
+            if(selectedMonthData.numDaysInMonth >= 30) {
+                collectionViewHeightConstraint.constant += CGFloat(CELL_HEIGHT)
+            }
+        }
+        else if(selectedMonthData.firstDayInMonth == 5) {
+            if(selectedMonthData.numDaysInMonth == 31) {
+                collectionViewHeightConstraint.constant += CGFloat(CELL_HEIGHT)
+            }
+        }
+        else {
+            collectionViewHeightConstraint.constant = CGFloat(ORIGINAL_CV_HEIGHT)
         }
         
         return newItemsArray

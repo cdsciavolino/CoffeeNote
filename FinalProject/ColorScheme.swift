@@ -40,8 +40,8 @@ class ColorScheme: NSObject {
     
     static func darkGreyScheme() -> ColorScheme {
         return ColorScheme(
-            backCol: UIColor(red: 0.43922, green: 0.43922, blue: 0.43922, alpha: 0.8),
-            secCol: UIColor(red: 0.43922, green: 0.43922, blue: 0.43922, alpha: 0.8),
+            backCol: UIColor(red: 0.43922, green: 0.43922, blue: 0.43922, alpha: 1.0),
+            secCol: UIColor(red: 155/255.0, green: 155/255.0, blue: 155/255.0, alpha: 1.0),
             texCol: UIColor.whiteColor(),
             navCol: UIColor.blackColor(),
             curCol: UIColor(red: 0.54117645, green: 0.8627451, blue: 0.8627451, alpha: 1.0),
@@ -52,7 +52,7 @@ class ColorScheme: NSObject {
     static func darkBlueScheme() -> ColorScheme {
         return ColorScheme(
             backCol: UIColor(red: 35/255.0, green: 72/255.0, blue: 108/255.0, alpha: 1.0),
-            secCol: UIColor(red: 43/255.0, green: 81/255.0, blue: 117/255.0, alpha: 0.8),
+            secCol: UIColor(red: 43/255.0, green: 81/255.0, blue: 117/255.0, alpha: 1.0),
             texCol: UIColor.whiteColor(),
             navCol: UIColor(red: 3/255.0, green: 30/255.0, blue: 55/255.0, alpha: 1.0),
             curCol: UIColor(red: 15/255.0, green: 50/255.0, blue: 83/255.0, alpha: 1.0),

@@ -43,7 +43,7 @@ class WeekdayCollectionReusableView: UICollectionReusableView, UICollectionViewD
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         //returns number of items in section AKA how many cells to make
-        weekdayCollectionView.backgroundColor = colorScheme.secondaryColor
+        weekdayCollectionView.backgroundColor = colorScheme.backGroundColor
         
         return WEEKDAYS_LIST.count
     }
@@ -56,7 +56,7 @@ class WeekdayCollectionReusableView: UICollectionReusableView, UICollectionViewD
         let cell = weekdayCollectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! WeekdayCollectionViewCell
         cell.dayLabel.text = String(WEEKDAYS_LIST[indexPath.row])
         cell.dayLabel.textColor = colorScheme.textColor
-        cell.backgroundColor = colorScheme.secondaryColor
+        cell.backgroundColor = colorScheme.backGroundColor
         return cell
     }
 }

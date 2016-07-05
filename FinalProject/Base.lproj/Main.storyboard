@@ -113,7 +113,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Date Here:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ryo-Js-eC8">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Date Here:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ryo-Js-eC8">
                                 <rect key="frame" x="20" y="365" width="560" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -142,7 +142,7 @@
                                     <action selector="nextMonthButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Xi-pZ-Ujr"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Kh3-4A-IXX">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Kh3-4A-IXX">
                                 <rect key="frame" x="25" y="72" width="548" height="285"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="285" id="vz3-cW-jth"/>
@@ -296,6 +296,7 @@
                     <connections>
                         <outlet property="bottomTextFieldConstraint" destination="b3J-fZ-Qyo" id="yFi-YO-7zs"/>
                         <outlet property="collectionView" destination="Kh3-4A-IXX" id="oPl-YY-VSu"/>
+                        <outlet property="collectionViewHeightConstraint" destination="vz3-cW-jth" id="xTp-0I-rug"/>
                         <outlet property="dateLabel" destination="Ryo-Js-eC8" id="g5X-26-0AE"/>
                         <outlet property="lastMonthButton" destination="2Q2-0R-MRc" id="Zs5-Qp-T4K"/>
                         <outlet property="nextMonthButton" destination="Xgh-cr-J88" id="GGl-Mi-yEb"/>
