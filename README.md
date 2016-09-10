@@ -6,13 +6,14 @@ This application is a cross between a calendar and a notepad. It allows you to s
 
 
 **TO BE IMPLEMENTED IN THE FUTURE:**
-- Move constraints for months that don’t currently fit on the screen
 - Better design/appearance/color scheme
-- Detail view controller (Button in editing view? / change month layout?)
+- Detail view controller
 - Tags for days
-- Settings tab
+- Choice of integrating iCloud storage to maintain over multiple devices
+- Small rectangles that show color of each scheme in ColorTableViewCells
 
 **Current Identified Glitches**
+- GLITCH: Month buttons on either side of calendar change back to white when data is edited (assuming different color scheme
 
 **What I did**
 - Implemented a calendar view with correctly numbered days/correctly set days of the week
@@ -31,6 +32,7 @@ This application is a cross between a calendar and a notepad. It allows you to s
 - FIXED: Improve keyboard functionality so the user can move the application to background without glitching the app
 - FIXED: Fix so that the user can quit immediately after editing while still saving the input (in keyboardWillDismiss method?)
 - FIXED: Currently does not delete empty day objects in NSManagedObjectContext
+- FIXED: Move constraints for months that don’t currently fit on the screen
 
 
 **Contact**
