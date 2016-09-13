@@ -12,6 +12,7 @@ This application is a cross between a calendar and a notepad. It allows you to s
 - Choice of integrating iCloud storage to maintain over multiple devices
 - Small rectangles that show color of each scheme in ColorTableViewCells
 - Setting option to delete data from longer than 3(x?) months ago etc
+- Ability to tap date and go to any date valid on ViewController screen
 
 **Current Identified Glitches**
 - GLITCH: Month buttons on either side of calendar change back to white when data is edited (assuming different color scheme
