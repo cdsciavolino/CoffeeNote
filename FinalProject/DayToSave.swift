@@ -20,22 +20,17 @@ class DayToSave: NSManagedObject {
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
-    
-//    init(month: Month, dayNumValue: Int, dayText: String?) {
-//        super.init()
-//        self.month = month
-//        self.dayNumValue = dayNumValue
-//        self.savedText = dayText ?? ""
-//        self.dateString = "\(month.monthValue)/\(dayNumValue)/\(month.currentYear)"
-//    }
+
     
     func getDescription() -> String {
         return self.dateString!
     }
     
+    
     func configureDateString() {
         self.dateString = "\(month!.monthValue)/\(dayNumValue!)/\(month!.currentYear)"
     }
+    
     
     func containsData() -> Bool {
         return !self.savedText!.isEmpty

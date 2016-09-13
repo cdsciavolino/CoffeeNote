@@ -10,9 +10,8 @@ import UIKit
 
 class ColorTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var colorLabel: UILabel!
-    
-    @IBOutlet weak var selectedView: UIView!
+    @IBOutlet weak var colorLabel: UILabel!     // Label containing the name of the ColorScheme
+    @IBOutlet weak var selectedView: UIView!    // Circle that checks when the ColorScheme is chosen
     
     override func awakeFromNib() {
         super.awakeFromNib()

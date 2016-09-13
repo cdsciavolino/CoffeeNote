@@ -14,7 +14,7 @@ protocol ColorSchemeChosenDelegate {
 
 class ColorSchemeEditorTableViewController: UITableViewController {
 
-    let colorSchemeArray: [ColorScheme] = [ColorScheme.darkGreyScheme(), ColorScheme.darkBlueScheme()]
+    let COLOR_SCHEME_ARRAY: [ColorScheme] = [ColorScheme.darkGreyScheme(), ColorScheme.darkBlueScheme()]
     
     var curColorScheme: ColorScheme!
     
@@ -31,28 +31,25 @@ class ColorSchemeEditorTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    
+    /*
+     Used to reload the colors of the view with the new curColorScheme
+     */
     override func viewWillAppear(animated: Bool) {
         self.view.backgroundColor = curColorScheme.backGroundColor
         self.navigationController?.navigationBar.backgroundColor = curColorScheme.navigationBarColor
-        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
+    
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return colorSchemeArray.count
+        return COLOR_SCHEME_ARRAY.count
     }
 
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ColorCell", forIndexPath: indexPath) as! ColorTableViewCell
 
-        let cellColor = colorSchemeArray[indexPath.row]
+        let cellColor = COLOR_SCHEME_ARRAY[indexPath.row]
         cell.colorLabel.text = cellColor.colorSchemeName
         cell.backgroundColor = cellColor.backGroundColor
         cell.colorLabel.textColor = cellColor.textColor
@@ -68,13 +65,19 @@ class ColorSchemeEditorTableViewController: UITableViewController {
     }
         
     
+    /*
+     Reloads the view with the new chosen ColorScheme
+     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        curColorScheme = colorSchemeArray[indexPath.row]
+        curColorScheme = COLOR_SCHEME_ARRAY[indexPath.row]
         viewWillAppear(false)
         tableView.reloadData()
     }
     
     
+    /*
+     Passes back the selected colorScheme to the SettingsViewController when the user taps the back button
+     */
     override func viewWillDisappear(animated: Bool) {
         if (delegate != nil) {
             delegate?.colorSchemeHasBeenChosen(curColorScheme)

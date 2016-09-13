@@ -37,10 +37,18 @@ class Day: NSObject {
         self.stringRepDate = "\(month.monthValue)/\(dayNumValue)/\(month.currentYear)"
     }
     
+    
+    /*
+     Returns the string representation of the date in the form (1)M/DD/YYYY
+     */
     func getDescription() -> String {
         return self.stringRepDate
     }
     
+    
+    /*
+     Returns whether the Day contains text data associated with it or not
+     */
     func containsData() -> Bool {
         return !self.dayText.isEmpty
     }

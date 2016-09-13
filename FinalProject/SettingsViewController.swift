@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SettingsUpdatedDeletage {
+protocol SettingsUpdatedDelegate {
     func settingsHaveBeenUpdated(updatedColorScheme: ColorScheme)
 }
 
@@ -17,18 +17,19 @@ class SettingsViewController: UIViewController, ColorSchemeChosenDelegate {
     @IBOutlet weak var changeColorSchemeButton: UIButton!
     
     var colorScheme: ColorScheme!
-    
-    var delegate: SettingsUpdatedDeletage? = nil
+    var delegate: SettingsUpdatedDelegate? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor(red: 0.43922, green: 0.43922, blue: 0.43922, alpha: 0.8)
         self.title = "Settings"
-        
-        // Do and additional setup after loading the view.
     }
     
+    
+    /*
+     Relaod the view with the current ColorScheme
+     */
     override func viewWillAppear(animated: Bool) {
         changeColorSchemeButton.titleLabel?.textColor = colorScheme.textColor
         self.navigationController?.navigationBar.backgroundColor = colorScheme.navigationBarColor
@@ -38,11 +39,10 @@ class SettingsViewController: UIViewController, ColorSchemeChosenDelegate {
 
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
+    /*
+     Function associated with the ColorSchemeChosenDelegate. Alters colorScheme when the user enters the ColorSchemeTableViewController and chooses a new ColorScheme and passes it back to SettingsUpdatedDelegate to make the same changes in that view
+     */
     func colorSchemeHasBeenChosen(chosenColorScheme: ColorScheme) {
         colorScheme = chosenColorScheme
         viewDidAppear(false)
@@ -52,6 +52,9 @@ class SettingsViewController: UIViewController, ColorSchemeChosenDelegate {
     }
     
 
+    /*
+     Passes the curColorScheme
+     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ChangeColorSegue" {
             let changeColorViewController = segue.destinationViewController as! ColorSchemeEditorTableViewController

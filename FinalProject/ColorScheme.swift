@@ -10,13 +10,13 @@ import UIKit
 
 class ColorScheme: NSObject {
     
-    var colorSchemeName: String
-    var backGroundColor: UIColor
-    var secondaryColor: UIColor
-    var textColor: UIColor
-    var navigationBarColor: UIColor
-    var currentDayColor: UIColor
-    var selectedDayColor: UIColor
+    var colorSchemeName: String         // Name associated with the ColorScheme
+    var backGroundColor: UIColor        // UIColor for the background of each view
+    var secondaryColor: UIColor         // UIColor for the secondary view on top of the background view
+    var textColor: UIColor              // UIColor for the text
+    var navigationBarColor: UIColor     // UIColor for the navigation bar
+    var currentDayColor: UIColor        // UIColor for the selectionView on the current day on the calendar view
+    var selectedDayColor: UIColor       // UIColor for the selectionView on the selected day on the calendar view
         
     override init() {
         backGroundColor = UIColor.blackColor()
@@ -28,6 +28,7 @@ class ColorScheme: NSObject {
         colorSchemeName = ""
     }
     
+    
     init(backCol: UIColor, secCol: UIColor, texCol: UIColor, navCol: UIColor, curCol: UIColor, selCol: UIColor, name: String) {
         backGroundColor = backCol
         secondaryColor = secCol
@@ -37,6 +38,7 @@ class ColorScheme: NSObject {
         selectedDayColor = selCol
         colorSchemeName = name
     }
+    
     
     static func darkGreyScheme() -> ColorScheme {
         return ColorScheme(
@@ -48,6 +50,7 @@ class ColorScheme: NSObject {
             selCol: UIColor.orangeColor(),
             name: "Midnight Grey")
     }
+    
     
     static func darkBlueScheme() -> ColorScheme {
         return ColorScheme(

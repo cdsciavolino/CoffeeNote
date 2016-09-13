@@ -11,13 +11,20 @@ import UIKit
 class Month: NSObject {
 
     /*
-    ATTRIBUTES:
-        monthName       : String value of one of the twelve months
-        monthValue      : Int representaion of one of the twelve months
-        numDaysInMonth  : Int value of how many days in specified month
-        leapYear        : Boolean value returning if the current year is a leap year or not
-        currentYear     : Int value represents the value of the current year
-        firstDayInMonth : Int representation of the first day of the given month according to the following:
+     Class that represents an instance of a Month
+     ATTRIBUTES:
+        NAME            : Type     Description
+                            [invariants]
+        monthName       : String   Name of the corresponding month
+                            [One of the 12 months]
+        monthValue      : Int      Number of the corresponding month
+                            [1..12]
+        numDaysInMonth  : Int      Number of days in corresponding month
+                            [1..31]
+        leapYear        : Bool     Returns if the year is a leap year or not
+        currentYear     : Int      Number of the current year
+                            [1..]
+        firstDayInMonth : Int      Number corresponding to the first day of the month given the following chart:
             Sunday:     0
             Monday:     1
             Tuesday:    2
@@ -26,6 +33,7 @@ class Month: NSObject {
             Friday:     5
             Saturday:   6
     */
+    
     var monthName: String
     var monthValue: Int
     var numDaysInMonth: Int
@@ -111,6 +119,10 @@ class Month: NSObject {
         }
     }
     
+    
+    /*
+     Returns whether the year is a leap year or not
+     */
     func isLeapYear(year: Int) -> Bool{
         
         //returns whether the current year is a leap year or not
@@ -131,16 +143,18 @@ class Month: NSObject {
         }
     }
     
+    
+    /*
+     returns the first day in the month in accordance with the chart below
+        Saturday:   0
+        Sunday:     1
+        Monday:     2
+        Tuesday:    3
+        Wednesday:  4
+        Thursday:   5
+        Friday:     6
+     */
     func getFirstDayInMonth(month: Int, year: Int, leapYear: Bool) -> Int{
-        
-//      returns the first day in the month in accordance with the chart above
-//      Saturday:   0
-//      Sunday:     1
-//      Monday:     2
-//      Tuesday:    3
-//      Wednesday:  4
-//      Thursday:   5
-//      Friday:     6
         
         var month = month
         let yearNum = year % 100

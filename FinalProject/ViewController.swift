@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate, SettingsUpdatedDeletage {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate, SettingsUpdatedDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!                //Connection to the upper calendar
     @IBOutlet weak var notepadTF: UITextView!                           //Connection to the lower notepad
@@ -499,14 +499,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             counter += 1
         }
         
-        //If the first day is a Saturday and there are 30+ days in the month, the collectionView needs an extra row to accommodate for the extra space
+        //If the first day is a Friday and there are 30+ days in the month, the collectionView needs an extra row to accommodate for the extra space
         if(selectedMonthData.firstDayInMonth == 6) {
             if(selectedMonthData.numDaysInMonth >= 30) {
                 collectionViewHeightConstraint.constant += CGFloat(CELL_HEIGHT)
             }
         }
             
-        //If the first day is a Friday and there are 31 days in the month, the collectionView needs an extra row as well
+        //If the first day is a Thursday and there are 31 days in the month, the collectionView needs an extra row as well
         else if(selectedMonthData.firstDayInMonth == 5) {
             if(selectedMonthData.numDaysInMonth == 31) {
                 collectionViewHeightConstraint.constant += CGFloat(CELL_HEIGHT)
@@ -700,48 +700,39 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
+    /*
+     Method that converts a Day object day into a DayToSave NSManagedObject and adds it to the NSManagedObjectContext. Once it's added, the NSManagedObjectContext is saved
+     */
     func saveDateData(day: Day) {
         
-        /*
-        Helper method that saves data to the corresponding [NSManagedObject]
-        
-        Parameters:
-        date:           String: A specified date in the form MM/DD/YYYY to be saved in the dataDatesArray
-        textDataToSave  String: A text field that is in any form to be saved in the dataTextArray
-        
-        */
-        
-        //add an item to the managed object context
+        //add day to the managed object context
         let entity = NSEntityDescription.insertNewObjectForEntityForName("DayToSave", inManagedObjectContext: managedObjectContext) as! DayToSave
+        //set the value for the item
         entity.savedText = day.dayText
         entity.dateString = day.getDescription()
-        //set the value for the item
-        
-        // searches dataDatesArray to see if there is a date in the array. Uncomment portion to  try and filter when to save and when not to save.
         
         //Save the managed object context back
         do {
             try managedObjectContext.save()
         } catch {
-            print("Did not save properly")
+            print("Failed to successfully save managedObjectContext")
         }
     }
     
     
+    /*
+     Method that fetches the [NSManagedObject] from Core Data and converts it to a [DayToSave]
+     */
     func fetchDatesFromCoreData() {
         
-        /*
-        Helper method to fetch the data from CoreData when called
-        */
-        
         // Get the managedObject context
-        
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
         // Create a fetch request into Core Data
         let fetchRequest = NSFetchRequest(entityName: "DayToSave")
         
+        // Sort the data received by the fetch request from earliest days to latest days
         let sortDescriptor = NSSortDescriptor.init(key: "dateString", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
@@ -753,21 +744,29 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 self.previouslySavedDaysArray = fetchedResults as! [DayToSave]
             }
         } catch {
-            print("could not fetch day data")
+            print("Failed to fetch DayToSave array")
         }
         
     }
     
     
+    /*
+     Method run whenever the application is no longer active. Converts the current iteration of the dayDictionary array to [DayToSave] and adds them to the managedObjectContext. Then saves the managedObjectContext
+     */
     func applicationWillResignActive(notif: NSNotification) {
-        //day dictionary
+
+        //Cleans the current managed object context
         deleteAllData("DayToSave")
+        
+        //adds all days in the dictionary to the managed object context
         for string in dayDictionary.keys {
             let entity = NSEntityDescription.insertNewObjectForEntityForName("DayToSave", inManagedObjectContext: managedObjectContext) as! DayToSave
             entity.savedText = dayDictionary[string]!.dayText
             entity.dateString = dayDictionary[string]!.getDescription()
             managedObjectContext.insertObject(entity)
         }
+        
+        //Saves the managed object context
         do {
             try managedObjectContext.save()
         } catch {
@@ -775,11 +774,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
     }
     
+    
+    /*
+     Deletes all entries in the Core Data stack in order to prevent repetitive entries. Does this by fetching all of the data and then going through the results and deleting them from the context. 
+     */
     func deleteAllData(entity: String) {
-        
-        /*
-        Deletes all data within the CoreData stack
-        */
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext

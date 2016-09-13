@@ -14,7 +14,7 @@ class WeekdayCollectionReusableView: UICollectionReusableView, UICollectionViewD
     
     var colorScheme: ColorScheme!
     
-    var WEEKDAYS_LIST = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    let WEEKDAYS_LIST = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
     lazy var flowLayout: UICollectionViewFlowLayout = {
         

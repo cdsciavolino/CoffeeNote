@@ -10,7 +10,7 @@ import UIKit
 
 class WeekdayCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var dayLabel: UILabel! // Labeled name of the weekday
     
     override func layoutSubviews() {
         super.layoutSubviews()

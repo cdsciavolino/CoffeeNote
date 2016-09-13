@@ -11,9 +11,11 @@ This application is a cross between a calendar and a notepad. It allows you to s
 - Tags for days
 - Choice of integrating iCloud storage to maintain over multiple devices
 - Small rectangles that show color of each scheme in ColorTableViewCells
+- Setting option to delete data from longer than 3(x?) months ago etc
 
 **Current Identified Glitches**
 - GLITCH: Month buttons on either side of calendar change back to white when data is edited (assuming different color scheme
+- GLITCH: Does not format correctly on other models of phone
 
 **What I did**
 - Implemented a calendar view with correctly numbered days/correctly set days of the week
