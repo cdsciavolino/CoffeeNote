@@ -22,7 +22,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint! //Constraint between the calendar and the dateLabel
     
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     
     var previouslySavedDaysArray: [DayToSave] = []      //Create an array to hold all the NSManagedObjects pulled from CoreData
     var dayDictionary: [String : Day] = [:]             //Create a dictionary to handle each of the date - Day pairs to save
@@ -40,7 +40,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             [ColorScheme.darkGreyScheme().colorSchemeName : ColorScheme.darkGreyScheme(),
              ColorScheme.darkBlueScheme().colorSchemeName : ColorScheme.darkBlueScheme()]
         
-        var colorSchemeName = NSUserDefaults.standardUserDefaults().objectForKey("ColorSchemeName") as? String ?? ColorScheme.darkGreyScheme().colorSchemeName
+        var colorSchemeName = UserDefaults.standard.object(forKey: "ColorSchemeName") as? String ?? ColorScheme.darkGreyScheme().colorSchemeName
         var colorScheme: ColorScheme = COLOR_SCHEMES_ARRAY[colorSchemeName]!
         
         return colorScheme
@@ -68,11 +68,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      String value of the current day 
      */
     lazy var todayStringValue: String = {
-        let todays = NSDate()
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let day = calendar!.components(.Day, fromDate: todays).day
-        let month = calendar!.components(.Month, fromDate: todays).month
-        let year = calendar!.components(.Year, fromDate: todays).year
+        let todays = Date()
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let day = (calendar as NSCalendar).components(.day, from: todays).day!
+        let month = (calendar as NSCalendar).components(.month, from: todays).month!
+        let year = (calendar as NSCalendar).components(.year, from: todays).year!
         return "\(month)/\(day)/\(year)"
     }()
     
@@ -82,10 +82,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      *** Cannot be used if a day is not selected in the calendar view ***
      */
     lazy var selectedDay: Int = {
-        let today = NSDate()
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let day = calendar!.components(.Day, fromDate: today)
-        return day.day
+        let today = Date()
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let day = (calendar as NSCalendar).components(.day, from: today)
+        return day.day!
     }()
     
     
@@ -93,10 +93,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      Int value of the currently selected year.
      */
     lazy var selectedYear: Int = {
-        let today = NSDate()
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let year = calendar!.components(.Year, fromDate: today)
-        return year.year
+        let today = Date()
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let year = (calendar as NSCalendar).components(.year, from: today)
+        return year.year!
     }()
     
     
@@ -104,22 +104,22 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      Int value of the currently selected month.
      */
     lazy var selectedMonth: Month = {
-        let today = NSDate()
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let month = calendar!.components(.Month, fromDate: today)
-        let year = calendar!.components(.Year, fromDate: today)
-        return Month(month: month.month, year: year.year)
+        let today = Date()
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let month = (calendar as NSCalendar).components(.month, from: today)
+        let year = (calendar as NSCalendar).components(.year, from: today)
+        return Month(month: month.month!, year: year.year!)
     }()
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         //Update background color
         self.view.backgroundColor = currentColorScheme.backGroundColor
         
         //Update notepadTF colors
         notepadTF.backgroundColor = currentColorScheme.backGroundColor
         notepadTF.textColor = currentColorScheme.textColor
-        notepadTF.layer.borderColor = currentColorScheme.secondaryColor.CGColor
+        notepadTF.layer.borderColor = currentColorScheme.secondaryColor.cgColor
         notepadTF.layer.cornerRadius = 5
         notepadTF.layer.borderWidth = 3
         
@@ -147,25 +147,25 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         grabDaysForDictionary()
         
         //Setting up notifications when keyboard comes up/recedes and when the application gets sent to the background
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.applicationWillResignActive(_:)), name: UIApplicationWillResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.applicationWillResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardChanged(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardChanged(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.applicationDidEnterBackground(_:)), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.applicationDidEnterBackground(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
         
         //setting up calendar data
-        let today = NSDate()
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let month: NSDateComponents = (calendar?.components(.Month, fromDate: today))!
-        let day: NSDateComponents = (calendar?.components(.Day, fromDate: today))!
-        let year = calendar?.components(.Year, fromDate: today)
-        let currentMonthData = Month(month: month.month, year: (year?.year)!)
-        self.title = "\(currentMonthData.monthName) \(year!.year)"
-        dateLabel.text = "\(currentMonthData.monthName) \(day.day), \(year!.year)"
+        let today = Date()
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let month: DateComponents = ((calendar as NSCalendar?)?.components(.month, from: today))!
+        let day: DateComponents = ((calendar as NSCalendar?)?.components(.day, from: today))!
+        let year = (calendar as NSCalendar?)?.components(.year, from: today)
+        let currentMonthData = Month(month: month.month!, year: (year?.year)!)
+        self.title = "\(currentMonthData.monthName) \(year!.year!)"
+        dateLabel.text = "\(currentMonthData.monthName) \(day.day!), \(year!.year!)"
         
         monthCollectionArray = generateItemsArray(Month(month: currentMonthData.monthValue, year: selectedYear), selectedYear: (year?.year)!)
         
@@ -190,9 +190,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.dataSource = self
         collectionView.bounces = true
         collectionView.alwaysBounceVertical = true
-        collectionView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        collectionView.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
         collectionView.backgroundColor = currentColorScheme.secondaryColor
-        flowLayout.headerReferenceSize = CGSizeMake(self.collectionView.frame.size.width, 35)
+        flowLayout.headerReferenceSize = CGSize(width: self.collectionView.frame.size.width, height: 35)
         //what we had before autolayout; given a frame, expand the view to fit into new frame
     }
     
@@ -200,7 +200,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Formats the size of each cell
     */
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.bounds.width / 8.0
         let height = view.bounds.height / 13.5
         return CGSize(width: width, height: height)
@@ -210,21 +210,21 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Method is called whenever the user taps a valid cell in the calendar. Makes the text field editable and updates the cell's selector background. Pulls up the data from the model and displays it in the text field
      */
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let dest = collectionView.cellForItemAtIndexPath(indexPath) as! CollectionViewCell
-        notepadTF.editable = true       //make the text field selectable and editable to add data to the day
-        notepadTF.selectable = true
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let dest = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
+        notepadTF.isEditable = true       //make the text field selectable and editable to add data to the day
+        notepadTF.isSelectable = true
         dest.selectionView.alpha = 0.8
         dateLabel.text = "\(dest.dayRep.month.monthName) \(dest.label.text!), \(dest.dayRep.month.currentYear)"
         
         //if selected, need to toggle in order to get the buttons to trigger correctly
-        dest.selected = true
-        dest.userInteractionEnabled = false
+        dest.isSelected = true
+        dest.isUserInteractionEnabled = false
         
         selectedDay = dest.dayRep.dayNumValue
         
         notepadTF.text = dest.dayRep.dayText
-        notepadTF.font = notepadTF.font?.fontWithSize(18.0)
+        notepadTF.font = notepadTF.font?.withSize(18.0)
         
     }
     
@@ -232,10 +232,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Runs each time a cell is deselected. Makes the text field uneditable and updates the cell selector color. Saves the notepad data to the model.
      */
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let dest = collectionView.cellForItemAtIndexPath(indexPath) as! CollectionViewCell
-        dest.selected = false
-        dest.userInteractionEnabled = true
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let dest = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
+        dest.isSelected = false
+        dest.isUserInteractionEnabled = true
         dest.selectionView.alpha = 0.0
         view.endEditing(true)
         
@@ -257,14 +257,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Method that formats each cell in the collectionView (calendar). Each cell gets a corresponding Day object that contains all or the necessary data for that specific day on the calendar.
      */
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         //formats and fills each cell according to the class CollectionViewCell
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CollectionViewCell
-        cell.selected = false
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
+        cell.isSelected = false
         cell.selectionView.alpha = 0.0
         cell.backgroundColor = currentColorScheme.backGroundColor
-        cell.dayRep = monthCollectionArray[indexPath.row]
+        cell.dayRep = monthCollectionArray[(indexPath as NSIndexPath).row]
         if cell.dayRep.dayNumValue == 0 {
             cell.label.text = ""
         } else {
@@ -286,9 +286,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         //if the label is empty then the user cannot crash the program by pressing it
         if cell.label.text == "" {
-            cell.userInteractionEnabled = false
+            cell.isUserInteractionEnabled = false
         } else {
-            cell.userInteractionEnabled = true
+            cell.isUserInteractionEnabled = true
         }
         
         
@@ -305,7 +305,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Returns the number of items in the collectionView
      */
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return monthCollectionArray.count
     }
@@ -314,9 +314,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Formats the row containing the weekday cells at the top of the calendar (ex. Sun, Mon, Tue ...)
      */
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "Header", forIndexPath: indexPath) as! WeekdayCollectionReusableView
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! WeekdayCollectionReusableView
         view.weekdayCollectionView.delegate = view.self
         view.weekdayCollectionView.dataSource = view.self
         view.backgroundColor = currentColorScheme.backGroundColor
@@ -329,17 +329,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Tapping outside of the keyboard dismisses it
      */
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         
         view.endEditing(true)
-        super.touchesBegan(touches, withEvent: event)
+        super.touchesBegan(touches, with: event)
     }
     
     
     /* 
      Calls lastMonth() helper method when the arrow on the left side of the calendar is tapped
      */
-    @IBAction func lastMonthButtonPressed(sender: UIButton) {
+    @IBAction func lastMonthButtonPressed(_ sender: UIButton) {
         lastMonth()
     }
     
@@ -347,7 +347,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /* 
      Calls nextMonth() helper method when the arrow on the right side of the calendar is tapped
      */
-    @IBAction func nextMonthButtonPressed(sender: UIButton) {
+    @IBAction func nextMonthButtonPressed(_ sender: UIButton) {
         nextMonth()
     }
     
@@ -355,9 +355,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /* 
      Calls helper method lastMonth when the user swipes the screen right 
      */
-    @IBAction func screenSwiped(sender: UISwipeGestureRecognizer) {
+    @IBAction func screenSwiped(_ sender: UISwipeGestureRecognizer) {
         
-        if sender.direction == .Right {
+        if sender.direction == .right {
             lastMonth()
         }
         
@@ -367,9 +367,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /* 
      Calls helper method nextMonth() when the user swipes the screen left 
      */
-    @IBAction func screenSwipedLeft(sender: UISwipeGestureRecognizer) {
+    @IBAction func screenSwipedLeft(_ sender: UISwipeGestureRecognizer) {
         
-        if sender.direction == .Left {
+        if sender.direction == .left {
             nextMonth()
         }
         
@@ -379,17 +379,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /* 
      Moves the notepadTF up when the keyboard is about to show up. Makes everything else invisible and brings up editing screen
      */
-    func keyboardWillShow(notif: NSNotification) {
-        let info = notif.userInfo!
-        let h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
+    func keyboardWillShow(_ notif: Notification) {
+        let info = (notif as NSNotification).userInfo!
+        let h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
         
         //Alter text to clarify current day
         self.title = "\(selectedMonth.monthName) \(selectedDay), \(selectedYear)"
         dateLabel.text = "Tap to Save"
         
         //disable the month changing buttons
-        lastMonthButton.enabled = false
-        nextMonthButton.enabled = false
+        lastMonthButton.isEnabled = false
+        nextMonthButton.isEnabled = false
         lastMonthButton.alpha = 0.0
         nextMonthButton.alpha = 0.0
     
@@ -410,9 +410,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /* 
      Moved the notepadTF back down when the user dismisses the keyboard. Makes everything reappear and brings back the calendar screen. Also saves the new data inputed if changed to the current day.
      */
-    func keyboardWillHide(notif: NSNotification) {
-        let info = notif.userInfo!
-        let h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
+    func keyboardWillHide(_ notif: Notification) {
+        let info = (notif as NSNotification).userInfo!
+        let h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
         
         //Move notepadTF back down to bring back to calendar screen
         bottomTextFieldConstraint.constant -= h
@@ -421,8 +421,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         keyboardIsShowingAlready = false
         
         //Enable the change month buttons again
-        lastMonthButton.enabled = true
-        nextMonthButton.enabled = true
+        lastMonthButton.isEnabled = true
+        nextMonthButton.isEnabled = true
         lastMonthButton.alpha = 1.0
         nextMonthButton.alpha = 1.0
         lastMonthButton.titleLabel?.textColor = currentColorScheme.textColor
@@ -432,7 +432,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.title = "\(selectedMonth.monthName) \(selectedYear)"
         dateLabel.text = "\(selectedMonth.monthName) \(selectedDay), \(selectedYear)"
         
-        let dest = collectionView.cellForItemAtIndexPath(collectionView.indexPathsForSelectedItems()![0]) as! CollectionViewCell
+        let dest = collectionView.cellForItem(at: collectionView.indexPathsForSelectedItems![0]) as! CollectionViewCell
         
         // Saves the data when the cell is deselected
         dest.dayRep.dayText = notepadTF.text ?? ""
@@ -440,7 +440,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             dayDictionary[dest.dayRep.getDescription()] = dest.dayRep
             saveDateData(dest.dayRep)
         } else {
-            dayDictionary.removeValueForKey((dest.dayRep?.getDescription())!)
+            dayDictionary.removeValue(forKey: (dest.dayRep?.getDescription())!)
         }
         
         //Resets the size of the calendar depending on how many rows are required
@@ -457,9 +457,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Alters the constraints once again if a different keyboard is chosen (Ex. emoji's etc)
      */
-    func keyboardChanged(notif: NSNotification) {
-        let info = notif.userInfo!
-        let h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
+    func keyboardChanged(_ notif: Notification) {
+        let info = (notif as NSNotification).userInfo!
+        let h = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
         bottomTextFieldConstraint.constant = h + 20
         topDateLabelConstraint.constant = 8 - h
     }
@@ -468,7 +468,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Generates the Day array representation of the desired month. Days containing 0's in the beginning of the array represent empty days that are placeholders in order to begin on the desired weekday.
      */
-    func generateItemsArray(selectedMonthData: Month, selectedYear: Int) -> [Day] {
+    func generateItemsArray(_ selectedMonthData: Month, selectedYear: Int) -> [Day] {
         
         /*
         PARAMETER           : TYPE      DESCRIPTION
@@ -526,7 +526,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Returns the date in the form (1)M/DD/YYYY from a specified Month object and a day
      */
-    func toDateForm(month: Month, dayValue: Int) -> String {
+    func toDateForm(_ month: Month, dayValue: Int) -> String {
         
         return "\(month.monthValue)/\(dayValue)/\(month.currentYear)"
         
@@ -548,9 +548,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Handles segue to the Settings VC, passing along the currentColorScheme
      */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SettingsSegue" {
-            let settingsViewController = segue.destinationViewController as! SettingsViewController
+            let settingsViewController = segue.destination as! SettingsViewController
             settingsViewController.colorScheme = currentColorScheme
             settingsViewController.delegate = self
         }
@@ -562,10 +562,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      
      Precondition: dateString must be in the form MM/DD/YYYY
      */
-    func getMonthFromString(dateString: String) -> Int {
+    func getMonthFromString(_ dateString: String) -> Int {
         
-        let x = dateString.characters.indexOf("/")
-        return Int(dateString.substringToIndex(x!))!
+        let x = dateString.characters.index(of: "/")
+        return Int(dateString.substring(to: x!))!
         
     }
     
@@ -575,12 +575,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      
      Precondition: dateString must be in the form MM/DD/YYYY
     */
-    func getDayFromString(dateString: String) -> Int {
+    func getDayFromString(_ dateString: String) -> Int {
         
-        let indexOne = dateString.characters.indexOf("/")?.advancedBy(1)
-        let string = dateString.substringFromIndex(indexOne!)
-        let secondIndex = string.characters.indexOf("/")
-        return Int(String(string.substringToIndex(secondIndex!)))!
+        let indexOne = dateString.index((dateString.characters.index(of: "/"))!, offsetBy: 1)
+        let string = dateString.substring(from: indexOne)
+        let secondIndex = string.characters.index(of: "/")
+        return Int(String(string.substring(to: secondIndex!)))!
         
     }
     
@@ -590,7 +590,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
      
      Precondition: dateString must be in the form MM/DD/YYYY
      */
-    func getYearFromString(dateString: String) -> Int {
+    func getYearFromString(_ dateString: String) -> Int {
         
         let year = Int(String(dateString.characters.suffix(4)))
         return year!
@@ -612,13 +612,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func nextMonth() {
         
         //Saves data associated with the current day
-        if (collectionView.indexPathsForSelectedItems()!.count != 0) {
-            let cell = collectionView.cellForItemAtIndexPath(collectionView.indexPathsForSelectedItems()![0]) as! CollectionViewCell
+        if (collectionView.indexPathsForSelectedItems!.count != 0) {
+            let cell = collectionView.cellForItem(at: collectionView.indexPathsForSelectedItems![0]) as! CollectionViewCell
             cell.dayRep.dayText = notepadTF.text ?? ""
             if cell.dayRep.containsData() {
                 dayDictionary[cell.dayRep.getDescription()] = cell.dayRep
             } else {
-                dayDictionary.removeValueForKey((cell.dayRep?.getDescription())!)
+                dayDictionary.removeValue(forKey: (cell.dayRep?.getDescription())!)
             }
         }
         
@@ -637,8 +637,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         monthCollectionArray = generateItemsArray(selectedMonth, selectedYear: selectedYear)
         dateLabel.text = "Select a day"
         notepadTF.text = ""
-        notepadTF.editable = false
-        notepadTF.selectable = false
+        notepadTF.isEditable = false
+        notepadTF.isSelectable = false
         view.endEditing(true)
         collectionView.reloadData()
     }
@@ -650,13 +650,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func lastMonth() {
         
         //Saves the data corresponding to the current day selected
-        if (collectionView.indexPathsForSelectedItems()!.count != 0) {
-            let cell = collectionView.cellForItemAtIndexPath(collectionView.indexPathsForSelectedItems()![0]) as! CollectionViewCell
+        if (collectionView.indexPathsForSelectedItems!.count != 0) {
+            let cell = collectionView.cellForItem(at: collectionView.indexPathsForSelectedItems![0]) as! CollectionViewCell
             cell.dayRep.dayText = notepadTF.text ?? ""
             if cell.dayRep.containsData() {
                 dayDictionary[cell.dayRep.getDescription()] = cell.dayRep
             } else {
-                dayDictionary.removeValueForKey((cell.dayRep?.getDescription())!)
+                dayDictionary.removeValue(forKey: (cell.dayRep?.getDescription())!)
             }
         }
         
@@ -674,8 +674,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         monthCollectionArray = generateItemsArray(selectedMonth, selectedYear: selectedYear)
         dateLabel.text = "Select a day"
         notepadTF.text = ""
-        notepadTF.editable = false
-        notepadTF.selectable = false
+        notepadTF.isEditable = false
+        notepadTF.isSelectable = false
         view.endEditing(true)
         collectionView.reloadData()
     }
@@ -684,7 +684,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Method completing the SettingsUpdatedDelegate with a new corresponding ColorScheme; reloads the collectionView with the new color scheme.
      */
-    func settingsHaveBeenUpdated(updatedColorScheme: ColorScheme) {
+    func settingsHaveBeenUpdated(_ updatedColorScheme: ColorScheme) {
         currentColorScheme = updatedColorScheme
         viewDidAppear(false)
         collectionView.reloadData()
@@ -695,18 +695,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Saves the currentColorScheme to NSUserDefaults to be pulled up the next time the user opens the application.
      */
-    func applicationDidEnterBackground(notif: NSNotification) {
-        NSUserDefaults.standardUserDefaults().setObject(currentColorScheme.colorSchemeName, forKey: "ColorSchemeName")
+    func applicationDidEnterBackground(_ notif: Notification) {
+        UserDefaults.standard.set(currentColorScheme.colorSchemeName, forKey: "ColorSchemeName")
     }
     
     
     /*
      Method that converts a Day object day into a DayToSave NSManagedObject and adds it to the NSManagedObjectContext. Once it's added, the NSManagedObjectContext is saved
      */
-    func saveDateData(day: Day) {
+    func saveDateData(_ day: Day) {
         
         //add day to the managed object context
-        let entity = NSEntityDescription.insertNewObjectForEntityForName("DayToSave", inManagedObjectContext: managedObjectContext) as! DayToSave
+        let entity = NSEntityDescription.insertNewObject(forEntityName: "DayToSave", into: managedObjectContext) as! DayToSave
         //set the value for the item
         entity.savedText = day.dayText
         entity.dateString = day.getDescription()
@@ -726,11 +726,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func fetchDatesFromCoreData() {
         
         // Get the managedObject context
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
         // Create a fetch request into Core Data
-        let fetchRequest = NSFetchRequest(entityName: "DayToSave")
+        let fetchRequest = NSFetchRequest<DayToSave>(entityName: "DayToSave")
         
         // Sort the data received by the fetch request from earliest days to latest days
         let sortDescriptor = NSSortDescriptor.init(key: "dateString", ascending: true)
@@ -739,9 +739,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // Execute the fetch request
         do {
             
-            let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+            let fetchedResults = try managedObjectContext.fetch(fetchRequest)
             if fetchedResults.count != 0 {
-                self.previouslySavedDaysArray = fetchedResults as! [DayToSave]
+                self.previouslySavedDaysArray = fetchedResults
             }
         } catch {
             print("Failed to fetch DayToSave array")
@@ -753,17 +753,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Method run whenever the application is no longer active. Converts the current iteration of the dayDictionary array to [DayToSave] and adds them to the managedObjectContext. Then saves the managedObjectContext
      */
-    func applicationWillResignActive(notif: NSNotification) {
+    func applicationWillResignActive(_ notif: Notification) {
 
         //Cleans the current managed object context
         deleteAllData("DayToSave")
         
         //adds all days in the dictionary to the managed object context
         for string in dayDictionary.keys {
-            let entity = NSEntityDescription.insertNewObjectForEntityForName("DayToSave", inManagedObjectContext: managedObjectContext) as! DayToSave
+            let entity = NSEntityDescription.insertNewObject(forEntityName: "DayToSave", into: managedObjectContext) as! DayToSave
             entity.savedText = dayDictionary[string]!.dayText
             entity.dateString = dayDictionary[string]!.getDescription()
-            managedObjectContext.insertObject(entity)
+            managedObjectContext.insert(entity)
         }
         
         //Saves the managed object context
@@ -778,20 +778,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     /*
      Deletes all entries in the Core Data stack in order to prevent repetitive entries. Does this by fetching all of the data and then going through the results and deleting them from the context. 
      */
-    func deleteAllData(entity: String) {
+    func deleteAllData(_ entity: String) {
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: entity)
+        let fetchRequest = NSFetchRequest<DayToSave>(entityName: entity)
         fetchRequest.returnsObjectsAsFaults = false
         
         do
         {
-            let results = try managedContext.executeFetchRequest(fetchRequest)
+            let results = try managedContext.fetch(fetchRequest)
             for managedObject in results
             {
-                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
-                managedContext.deleteObject(managedObjectData)
+                let managedObjectData:NSManagedObject = managedObject as NSManagedObject
+                managedContext.delete(managedObjectData)
             }
         } catch let error as NSError {
             print("Detele all data in \(entity) error : \(error) \(error.userInfo)")

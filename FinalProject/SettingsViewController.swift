@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SettingsUpdatedDelegate {
-    func settingsHaveBeenUpdated(updatedColorScheme: ColorScheme)
+    func settingsHaveBeenUpdated(_ updatedColorScheme: ColorScheme)
 }
 
 class SettingsViewController: UIViewController, ColorSchemeChosenDelegate {
@@ -30,7 +30,7 @@ class SettingsViewController: UIViewController, ColorSchemeChosenDelegate {
     /*
      Relaod the view with the current ColorScheme
      */
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         changeColorSchemeButton.titleLabel?.textColor = colorScheme.textColor
         self.navigationController?.navigationBar.backgroundColor = colorScheme.navigationBarColor
         self.view.backgroundColor = colorScheme.backGroundColor
@@ -43,7 +43,7 @@ class SettingsViewController: UIViewController, ColorSchemeChosenDelegate {
     /*
      Function associated with the ColorSchemeChosenDelegate. Alters colorScheme when the user enters the ColorSchemeTableViewController and chooses a new ColorScheme and passes it back to SettingsUpdatedDelegate to make the same changes in that view
      */
-    func colorSchemeHasBeenChosen(chosenColorScheme: ColorScheme) {
+    func colorSchemeHasBeenChosen(_ chosenColorScheme: ColorScheme) {
         colorScheme = chosenColorScheme
         viewDidAppear(false)
         if (delegate != nil) {
@@ -55,9 +55,9 @@ class SettingsViewController: UIViewController, ColorSchemeChosenDelegate {
     /*
      Passes the curColorScheme
      */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ChangeColorSegue" {
-            let changeColorViewController = segue.destinationViewController as! ColorSchemeEditorTableViewController
+            let changeColorViewController = segue.destination as! ColorSchemeEditorTableViewController
             changeColorViewController.curColorScheme = colorScheme
             changeColorViewController.delegate = self
         }

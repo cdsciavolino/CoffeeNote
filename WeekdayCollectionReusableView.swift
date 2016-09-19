@@ -30,7 +30,7 @@ class WeekdayCollectionReusableView: UICollectionReusableView, UICollectionViewD
     }()
     
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         
         //creates unique sizes for each cell
         
@@ -40,7 +40,7 @@ class WeekdayCollectionReusableView: UICollectionReusableView, UICollectionViewD
     }
     
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         //returns number of items in section AKA how many cells to make
         weekdayCollectionView.backgroundColor = colorScheme.backGroundColor
@@ -49,12 +49,12 @@ class WeekdayCollectionReusableView: UICollectionReusableView, UICollectionViewD
     }
     
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         //inputs data into each cell of the collectionView
         
-        let cell = weekdayCollectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! WeekdayCollectionViewCell
-        cell.dayLabel.text = String(WEEKDAYS_LIST[indexPath.row])
+        let cell = weekdayCollectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! WeekdayCollectionViewCell
+        cell.dayLabel.text = String(WEEKDAYS_LIST[(indexPath as NSIndexPath).row])
         cell.dayLabel.textColor = colorScheme.textColor
         cell.backgroundColor = colorScheme.backGroundColor
         return cell

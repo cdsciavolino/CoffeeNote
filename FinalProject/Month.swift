@@ -123,7 +123,7 @@ class Month: NSObject {
     /*
      Returns whether the year is a leap year or not
      */
-    func isLeapYear(year: Int) -> Bool{
+    func isLeapYear(_ year: Int) -> Bool{
         
         //returns whether the current year is a leap year or not
         
@@ -154,7 +154,7 @@ class Month: NSObject {
         Thursday:   5
         Friday:     6
      */
-    func getFirstDayInMonth(month: Int, year: Int, leapYear: Bool) -> Int{
+    func getFirstDayInMonth(_ month: Int, year: Int, leapYear: Bool) -> Int{
         
         var month = month
         let yearNum = year % 100
