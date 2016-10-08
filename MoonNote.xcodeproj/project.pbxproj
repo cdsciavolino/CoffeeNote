@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8301E09F1DA8932E00A35C87 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8301E09E1DA8932E00A35C87 /* Default-568h@2x.png */; };
 		8321896F1D03705A001DCEF6 /* ColorSchemeEditorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321896E1D03705A001DCEF6 /* ColorSchemeEditorTableViewController.swift */; };
 		832189711D037188001DCEF6 /* ColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832189701D037188001DCEF6 /* ColorTableViewCell.swift */; };
 		8338E23C1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */; };
@@ -27,25 +28,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8321896E1D03705A001DCEF6 /* ColorSchemeEditorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSchemeEditorTableViewController.swift; sourceTree = "<group>"; };
-		832189701D037188001DCEF6 /* ColorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTableViewCell.swift; sourceTree = "<group>"; };
-		8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayCollectionReusableView.swift; sourceTree = "<group>"; };
-		8355C3311C8A38C20050513D /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
-		835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayCollectionViewCell.swift; sourceTree = "<group>"; };
-		837947461CFBE58D00A7431C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		837947481CFD0ABE00A7431C /* ColorScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
-		8382837F1C0637C200F003CC /* Month.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
+		8301E09E1DA8932E00A35C87 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8321896E1D03705A001DCEF6 /* ColorSchemeEditorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorSchemeEditorTableViewController.swift; path = MoonNote/ColorSchemeEditorTableViewController.swift; sourceTree = "<group>"; };
+		832189701D037188001DCEF6 /* ColorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorTableViewCell.swift; path = MoonNote/ColorTableViewCell.swift; sourceTree = "<group>"; };
+		8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeekdayCollectionReusableView.swift; path = MoonNote/WeekdayCollectionReusableView.swift; sourceTree = "<group>"; };
+		8355C3311C8A38C20050513D /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Day.swift; path = MoonNote/Day.swift; sourceTree = "<group>"; };
+		835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeekdayCollectionViewCell.swift; path = MoonNote/WeekdayCollectionViewCell.swift; sourceTree = "<group>"; };
+		837947461CFBE58D00A7431C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = MoonNote/SettingsViewController.swift; sourceTree = "<group>"; };
+		837947481CFD0ABE00A7431C /* ColorScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorScheme.swift; path = MoonNote/ColorScheme.swift; sourceTree = "<group>"; };
+		8382837F1C0637C200F003CC /* Month.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Month.swift; path = MoonNote/Month.swift; sourceTree = "<group>"; };
 		839111B81BFEAE94002721A2 /* MoonNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		839111BB1BFEAE94002721A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		839111BD1BFEAE94002721A2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		839111BB1BFEAE94002721A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MoonNote/AppDelegate.swift; sourceTree = "<group>"; };
+		839111BD1BFEAE94002721A2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = MoonNote/ViewController.swift; sourceTree = "<group>"; };
 		839111C01BFEAE94002721A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		839111C31BFEAE94002721A2 /* FinalProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FinalProject.xcdatamodel; sourceTree = "<group>"; };
-		839111C51BFEAE94002721A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		839111C51BFEAE94002721A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = MoonNote/Assets.xcassets; sourceTree = "<group>"; };
 		839111C81BFEAE94002721A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		839111CA1BFEAE94002721A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		839111D01BFEB110002721A2 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		83B5E1671C854AE700F5A8C3 /* DayToSave+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DayToSave+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		83B5E1681C854AE700F5A8C3 /* DayToSave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayToSave.swift; sourceTree = "<group>"; };
+		839111CA1BFEAE94002721A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = MoonNote/Info.plist; sourceTree = "<group>"; };
+		839111D01BFEB110002721A2 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = MoonNote/CollectionViewCell.swift; sourceTree = "<group>"; };
+		83B5E1671C854AE700F5A8C3 /* DayToSave+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "DayToSave+CoreDataProperties.swift"; path = "MoonNote/DayToSave+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		83B5E1681C854AE700F5A8C3 /* DayToSave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DayToSave.swift; path = MoonNote/DayToSave.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		839111AF1BFEAE94002721A2 = {
 			isa = PBXGroup;
 			children = (
+				8301E09E1DA8932E00A35C87 /* Default-568h@2x.png */,
 				839111BA1BFEAE94002721A2 /* MoonNote */,
 				839111B91BFEAE94002721A2 /* Products */,
 			);
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				839111C91BFEAE94002721A2 /* LaunchScreen.storyboard in Resources */,
+				8301E09F1DA8932E00A35C87 /* Default-568h@2x.png in Resources */,
 				839111C61BFEAE94002721A2 /* Assets.xcassets in Resources */,
 				839111C11BFEAE94002721A2 /* Main.storyboard in Resources */,
 			);
