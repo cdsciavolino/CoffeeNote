@@ -29,13 +29,13 @@
 /* Begin PBXFileReference section */
 		8321896E1D03705A001DCEF6 /* ColorSchemeEditorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSchemeEditorTableViewController.swift; sourceTree = "<group>"; };
 		832189701D037188001DCEF6 /* ColorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTableViewCell.swift; sourceTree = "<group>"; };
-		8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeekdayCollectionReusableView.swift; path = ../WeekdayCollectionReusableView.swift; sourceTree = "<group>"; };
+		8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayCollectionReusableView.swift; sourceTree = "<group>"; };
 		8355C3311C8A38C20050513D /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayCollectionViewCell.swift; sourceTree = "<group>"; };
 		837947461CFBE58D00A7431C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		837947481CFD0ABE00A7431C /* ColorScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
 		8382837F1C0637C200F003CC /* Month.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
-		839111B81BFEAE94002721A2 /* Noted.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noted.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		839111B81BFEAE94002721A2 /* MoonNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		839111BB1BFEAE94002721A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		839111BD1BFEAE94002721A2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		839111C01BFEAE94002721A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 		839111AF1BFEAE94002721A2 = {
 			isa = PBXGroup;
 			children = (
-				839111BA1BFEAE94002721A2 /* Noted */,
+				839111BA1BFEAE94002721A2 /* MoonNote */,
 				839111B91BFEAE94002721A2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,12 +70,12 @@
 		839111B91BFEAE94002721A2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				839111B81BFEAE94002721A2 /* Noted.app */,
+				839111B81BFEAE94002721A2 /* MoonNote.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		839111BA1BFEAE94002721A2 /* Noted */ = {
+		839111BA1BFEAE94002721A2 /* MoonNote */ = {
 			isa = PBXGroup;
 			children = (
 				839111BB1BFEAE94002721A2 /* AppDelegate.swift */,
@@ -97,16 +97,16 @@
 				839111CA1BFEAE94002721A2 /* Info.plist */,
 				839111C21BFEAE94002721A2 /* FinalProject.xcdatamodeld */,
 			);
-			name = Noted;
+			name = MoonNote;
 			path = FinalProject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		839111B71BFEAE94002721A2 /* Noted */ = {
+		839111B71BFEAE94002721A2 /* MoonNote */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "Noted" */;
+			buildConfigurationList = 839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "MoonNote" */;
 			buildPhases = (
 				839111B41BFEAE94002721A2 /* Sources */,
 				839111B51BFEAE94002721A2 /* Frameworks */,
@@ -116,9 +116,9 @@
 			);
 			dependencies = (
 			);
-			name = Noted;
+			name = MoonNote;
 			productName = FinalProject;
-			productReference = 839111B81BFEAE94002721A2 /* Noted.app */;
+			productReference = 839111B81BFEAE94002721A2 /* MoonNote.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -138,7 +138,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "Noted" */;
+			buildConfigurationList = 839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "MoonNote" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -151,7 +151,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				839111B71BFEAE94002721A2 /* Noted */,
+				839111B71BFEAE94002721A2 /* MoonNote */,
 			);
 		};
 /* End PBXProject section */
@@ -310,7 +310,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ChrisSciavolino.FinalProject;
-				PRODUCT_NAME = Noted;
+				PRODUCT_NAME = MoonNote;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 			};
@@ -326,7 +326,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ChrisSciavolino.FinalProject;
-				PRODUCT_NAME = Noted;
+				PRODUCT_NAME = MoonNote;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 			};
@@ -335,7 +335,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "Noted" */ = {
+		839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "MoonNote" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				839111CB1BFEAE94002721A2 /* Debug */,
@@ -344,7 +344,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "Noted" */ = {
+		839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "MoonNote" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				839111CE1BFEAE94002721A2 /* Debug */,
