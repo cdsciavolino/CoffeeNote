@@ -53,13 +53,6 @@ class ColorSchemeEditorTableViewController: UITableViewController {
         cell.colorLabel.text = cellColor.colorSchemeName
         cell.backgroundColor = cellColor.backGroundColor
         cell.colorLabel.textColor = cellColor.textColor
-        cell.selectedView.layer.cornerRadius = cell.selectedView.frame.width / 2.0
-        cell.selectedView.alpha = 1.0
-        
-        if (cellColor.colorSchemeName == curColorScheme.colorSchemeName) {
-            cell.selectedView.alpha = 0.0
-        }
-        
         
         return cell
     }
@@ -70,8 +63,7 @@ class ColorSchemeEditorTableViewController: UITableViewController {
      */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         curColorScheme = COLOR_SCHEME_ARRAY[(indexPath as NSIndexPath).row]
-        viewWillAppear(false)
-        tableView.reloadData()
+        _ = navigationController?.popViewController(animated: true)
     }
     
     

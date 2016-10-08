@@ -116,12 +116,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //Update background color
         self.view.backgroundColor = currentColorScheme.backGroundColor
         
+        let border = CALayer()
+        let width = CGFloat(2.0)
+        border.borderColor = currentColorScheme.secondaryColor.cgColor
+        border.frame = CGRect(x: 0, y: dateLabel.frame.size.height - width, width:  dateLabel.frame.size.width, height: dateLabel.frame.size.height)
+        
+        border.borderWidth = width
+        dateLabel.layer.addSublayer(border)
+        dateLabel.layer.masksToBounds = true
+        
         //Update notepadTF colors
         notepadTF.backgroundColor = currentColorScheme.backGroundColor
         notepadTF.textColor = currentColorScheme.textColor
-        notepadTF.layer.borderColor = currentColorScheme.secondaryColor.cgColor
-        notepadTF.layer.cornerRadius = 5
-        notepadTF.layer.borderWidth = 3
+        
         
         //Update dateLabel colors
         dateLabel.backgroundColor = currentColorScheme.backGroundColor
@@ -136,6 +143,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         settingsBarButton.tintColor = currentColorScheme.textColor
         nextMonthButton.titleLabel?.textColor = currentColorScheme.textColor
         lastMonthButton.titleLabel?.textColor = currentColorScheme.textColor
+        collectionView.reloadData()
     }
     
     
@@ -194,6 +202,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.backgroundColor = currentColorScheme.secondaryColor
         flowLayout.headerReferenceSize = CGSize(width: self.collectionView.frame.size.width, height: 35)
         //what we had before autolayout; given a frame, expand the view to fit into new frame
+        
     }
     
     

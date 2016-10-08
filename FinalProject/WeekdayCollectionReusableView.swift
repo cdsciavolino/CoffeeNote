@@ -45,6 +45,15 @@ class WeekdayCollectionReusableView: UICollectionReusableView, UICollectionViewD
         //returns number of items in section AKA how many cells to make
         weekdayCollectionView.backgroundColor = colorScheme.backGroundColor
         
+        let border = CALayer()
+        let width = CGFloat(2.0)
+        border.borderColor = colorScheme.secondaryColor.cgColor
+        border.frame = CGRect(x: 0, y: weekdayCollectionView.frame.size.height - width, width:  weekdayCollectionView.frame.size.width, height: weekdayCollectionView.frame.size.height)
+        
+        border.borderWidth = width
+        weekdayCollectionView.layer.addSublayer(border)
+        weekdayCollectionView.layer.masksToBounds = true
+        
         return WEEKDAYS_LIST.count
     }
     

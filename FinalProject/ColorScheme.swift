@@ -55,7 +55,7 @@ class ColorScheme: NSObject {
     static func darkBlueScheme() -> ColorScheme {
         return ColorScheme(
             backCol: UIColor(red: 35/255.0, green: 72/255.0, blue: 108/255.0, alpha: 1.0),
-            secCol: UIColor(red: 43/255.0, green: 81/255.0, blue: 117/255.0, alpha: 1.0),
+            secCol: UIColor(red: 63/255.0, green: 118/255.0, blue: 150/255.0, alpha: 1.0),
             texCol: UIColor.white,
             navCol: UIColor(red: 3/255.0, green: 30/255.0, blue: 55/255.0, alpha: 1.0),
             curCol: UIColor(red: 15/255.0, green: 50/255.0, blue: 83/255.0, alpha: 1.0),
