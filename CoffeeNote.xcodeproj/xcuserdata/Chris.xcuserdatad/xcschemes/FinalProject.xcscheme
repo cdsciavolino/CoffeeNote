@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "839111B71BFEAE94002721A2"
                BuildableName = "MoonNote.app"
-               BlueprintName = "MoonNote"
-               ReferencedContainer = "container:MoonNote.xcodeproj">
+               BlueprintName = "CoffeeNote"
+               ReferencedContainer = "container:CoffeeNote.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "839111B71BFEAE94002721A2"
             BuildableName = "MoonNote.app"
-            BlueprintName = "MoonNote"
-            ReferencedContainer = "container:MoonNote.xcodeproj">
+            BlueprintName = "CoffeeNote"
+            ReferencedContainer = "container:CoffeeNote.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -57,8 +57,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "839111B71BFEAE94002721A2"
             BuildableName = "MoonNote.app"
-            BlueprintName = "MoonNote"
-            ReferencedContainer = "container:MoonNote.xcodeproj">
+            BlueprintName = "CoffeeNote"
+            ReferencedContainer = "container:CoffeeNote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -76,8 +76,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "839111B71BFEAE94002721A2"
             BuildableName = "MoonNote.app"
-            BlueprintName = "MoonNote"
-            ReferencedContainer = "container:MoonNote.xcodeproj">
+            BlueprintName = "CoffeeNote"
+            ReferencedContainer = "container:CoffeeNote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -12,6 +12,7 @@
 		8321896F1D03705A001DCEF6 /* ColorSchemeEditorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8321896E1D03705A001DCEF6 /* ColorSchemeEditorTableViewController.swift */; };
 		832189711D037188001DCEF6 /* ColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832189701D037188001DCEF6 /* ColorTableViewCell.swift */; };
 		8338E23C1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */; };
+		8341C3351DAC01250043C394 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341C3341DAC01250043C394 /* SettingsTableViewCell.swift */; };
 		8355C3321C8A38C20050513D /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8355C3311C8A38C20050513D /* Day.swift */; };
 		835EEB7A1C068E360038DEF6 /* WeekdayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */; };
 		837947471CFBE58D00A7431C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837947461CFBE58D00A7431C /* SettingsViewController.swift */; };
@@ -33,12 +34,13 @@
 		8321896E1D03705A001DCEF6 /* ColorSchemeEditorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSchemeEditorTableViewController.swift; sourceTree = "<group>"; };
 		832189701D037188001DCEF6 /* ColorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTableViewCell.swift; sourceTree = "<group>"; };
 		8338E23B1C03CAEF00C44BA5 /* WeekdayCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayCollectionReusableView.swift; sourceTree = "<group>"; };
+		8341C3341DAC01250043C394 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		8355C3311C8A38C20050513D /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		835EEB791C068E360038DEF6 /* WeekdayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayCollectionViewCell.swift; sourceTree = "<group>"; };
 		837947461CFBE58D00A7431C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		837947481CFD0ABE00A7431C /* ColorScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
 		8382837F1C0637C200F003CC /* Month.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
-		839111B81BFEAE94002721A2 /* MoonNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		839111B81BFEAE94002721A2 /* CoffeeNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		839111BB1BFEAE94002721A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		839111BD1BFEAE94002721A2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		839111C01BFEAE94002721A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -64,7 +66,7 @@
 		839111AF1BFEAE94002721A2 = {
 			isa = PBXGroup;
 			children = (
-				839111BA1BFEAE94002721A2 /* MoonNote */,
+				839111BA1BFEAE94002721A2 /* CoffeeNote */,
 				839111B91BFEAE94002721A2 /* Products */,
 				8301E09E1DA8932E00A35C87 /* Default-568h@2x.png */,
 			);
@@ -73,12 +75,12 @@
 		839111B91BFEAE94002721A2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				839111B81BFEAE94002721A2 /* MoonNote.app */,
+				839111B81BFEAE94002721A2 /* CoffeeNote.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		839111BA1BFEAE94002721A2 /* MoonNote */ = {
+		839111BA1BFEAE94002721A2 /* CoffeeNote */ = {
 			isa = PBXGroup;
 			children = (
 				839111BB1BFEAE94002721A2 /* AppDelegate.swift */,
@@ -86,6 +88,7 @@
 				8355C3311C8A38C20050513D /* Day.swift */,
 				8382837F1C0637C200F003CC /* Month.swift */,
 				839111BF1BFEAE94002721A2 /* Main.storyboard */,
+				8341C3341DAC01250043C394 /* SettingsTableViewCell.swift */,
 				8321896E1D03705A001DCEF6 /* ColorSchemeEditorTableViewController.swift */,
 				832189701D037188001DCEF6 /* ColorTableViewCell.swift */,
 				837947481CFD0ABE00A7431C /* ColorScheme.swift */,
@@ -100,16 +103,16 @@
 				839111CA1BFEAE94002721A2 /* Info.plist */,
 				8301E0A71DA8987700A35C87 /* FinalProject.xcdatamodeld */,
 			);
-			name = MoonNote;
+			name = CoffeeNote;
 			path = FinalProject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		839111B71BFEAE94002721A2 /* MoonNote */ = {
+		839111B71BFEAE94002721A2 /* CoffeeNote */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "MoonNote" */;
+			buildConfigurationList = 839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "CoffeeNote" */;
 			buildPhases = (
 				839111B41BFEAE94002721A2 /* Sources */,
 				839111B51BFEAE94002721A2 /* Frameworks */,
@@ -119,9 +122,9 @@
 			);
 			dependencies = (
 			);
-			name = MoonNote;
+			name = CoffeeNote;
 			productName = FinalProject;
-			productReference = 839111B81BFEAE94002721A2 /* MoonNote.app */;
+			productReference = 839111B81BFEAE94002721A2 /* CoffeeNote.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -141,7 +144,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "MoonNote" */;
+			buildConfigurationList = 839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "CoffeeNote" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -154,7 +157,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				839111B71BFEAE94002721A2 /* MoonNote */,
+				839111B71BFEAE94002721A2 /* CoffeeNote */,
 			);
 		};
 /* End PBXProject section */
@@ -186,6 +189,7 @@
 				837947491CFD0ABE00A7431C /* ColorScheme.swift in Sources */,
 				835EEB7A1C068E360038DEF6 /* WeekdayCollectionViewCell.swift in Sources */,
 				838283801C0637C200F003CC /* Month.swift in Sources */,
+				8341C3351DAC01250043C394 /* SettingsTableViewCell.swift in Sources */,
 				839111BC1BFEAE94002721A2 /* AppDelegate.swift in Sources */,
 				839111D11BFEB110002721A2 /* CollectionViewCell.swift in Sources */,
 				8301E0A91DA8987700A35C87 /* FinalProject.xcdatamodeld in Sources */,
@@ -255,7 +259,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -295,7 +299,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
@@ -314,7 +318,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ChrisSciavolino.FinalProject;
-				PRODUCT_NAME = MoonNote;
+				PRODUCT_NAME = CoffeeNote;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 			};
@@ -330,7 +334,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ChrisSciavolino.FinalProject;
-				PRODUCT_NAME = MoonNote;
+				PRODUCT_NAME = CoffeeNote;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 			};
@@ -339,7 +343,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "MoonNote" */ = {
+		839111B31BFEAE94002721A2 /* Build configuration list for PBXProject "CoffeeNote" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				839111CB1BFEAE94002721A2 /* Debug */,
@@ -348,7 +352,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "MoonNote" */ = {
+		839111CD1BFEAE94002721A2 /* Build configuration list for PBXNativeTarget "CoffeeNote" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				839111CE1BFEAE94002721A2 /* Debug */,

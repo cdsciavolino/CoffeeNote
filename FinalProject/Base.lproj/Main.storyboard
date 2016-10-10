@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kNk-2U-qVQ">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kNk-2U-qVQ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -10,7 +10,7 @@
         <!--Settings View Controller-->
         <scene sceneID="NHK-eH-PqS">
             <objects>
-                <viewController id="7ds-Tl-FTj" customClass="SettingsViewController" customModule="MoonNote" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7ds-Tl-FTj" customClass="SettingsViewController" customModule="CoffeeNote" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bjD-oI-JiS"/>
                         <viewControllerLayoutGuide type="bottom" id="Ekr-2u-sAQ"/>
@@ -19,37 +19,63 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNn-6d-Rae">
-                                <state key="normal" title="Change Color Scheme"/>
-                                <connections>
-                                    <segue destination="u2U-Eq-BoW" kind="show" identifier="ChangeColorSegue" id="SOL-8A-US7"/>
-                                </connections>
-                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="61" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hOG-S6-Yab">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsTVC" rowHeight="61" id="peC-Sk-9d5" customClass="SettingsTableViewCell" customModule="CoffeeNote">
+                                        <rect key="frame" x="0.0" y="92" width="375" height="61"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="peC-Sk-9d5" id="ne2-av-r18">
+                                            <frame key="frameInset" width="375" height="60.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUt-gE-MnO">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kUt-gE-MnO" firstAttribute="centerX" secondItem="ne2-av-r18" secondAttribute="centerX" id="fj9-sj-JJR"/>
+                                                <constraint firstItem="kUt-gE-MnO" firstAttribute="centerY" secondItem="ne2-av-r18" secondAttribute="centerY" id="lcx-EK-5SP"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="settingsLabel" destination="kUt-gE-MnO" id="4qT-xn-8sF"/>
+                                            <segue destination="u2U-Eq-BoW" kind="show" identifier="ChangeColorSegue" id="QW2-Hp-1WJ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="PNn-6d-Rae" firstAttribute="centerX" secondItem="LV0-WT-zxC" secondAttribute="centerX" id="K5o-nI-aIa"/>
-                            <constraint firstItem="PNn-6d-Rae" firstAttribute="top" secondItem="bjD-oI-JiS" secondAttribute="bottom" constant="8" id="ipz-IJ-qqJ"/>
+                            <constraint firstItem="Ekr-2u-sAQ" firstAttribute="top" secondItem="hOG-S6-Yab" secondAttribute="bottom" id="FV0-jt-XUw"/>
+                            <constraint firstItem="hOG-S6-Yab" firstAttribute="top" secondItem="bjD-oI-JiS" secondAttribute="bottom" constant="-64" id="Gto-W4-eHr"/>
+                            <constraint firstItem="hOG-S6-Yab" firstAttribute="centerX" secondItem="LV0-WT-zxC" secondAttribute="centerX" id="hzH-03-yCd"/>
+                            <constraint firstAttribute="trailing" secondItem="hOG-S6-Yab" secondAttribute="trailing" id="nOi-xH-A6d"/>
+                            <constraint firstItem="hOG-S6-Yab" firstAttribute="leading" secondItem="LV0-WT-zxC" secondAttribute="leading" id="xA6-gE-VFO"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="changeColorSchemeButton" destination="PNn-6d-Rae" id="FOm-aX-1QX"/>
+                        <outlet property="settingsTableView" destination="hOG-S6-Yab" id="yDJ-Tc-ml3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MPL-sO-Rm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1578" y="32"/>
+            <point key="canvasLocation" x="1576.8" y="31.934032983508249"/>
         </scene>
         <!--Color Scheme Editor Table View Controller-->
         <scene sceneID="iUc-hY-hGU">
             <objects>
-                <tableViewController id="u2U-Eq-BoW" customClass="ColorSchemeEditorTableViewController" customModule="MoonNote" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="u2U-Eq-BoW" customClass="ColorSchemeEditorTableViewController" customModule="CoffeeNote" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7bO-Jp-3VV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ColorCell" id="XBS-9k-w78" customClass="ColorTableViewCell" customModule="MoonNote" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ColorCell" id="XBS-9k-w78" customClass="ColorTableViewCell" customModule="CoffeeNote" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XBS-9k-w78" id="o3X-yK-E8k">
@@ -85,7 +111,7 @@
         <!--<Month> <Day>, <Year>-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MoonNote" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CoffeeNote" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -137,7 +163,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="TopLeft" reuseIdentifier="Cell" id="0lO-jn-mQe" customClass="CollectionViewCell" customModule="MoonNote" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="TopLeft" reuseIdentifier="Cell" id="0lO-jn-mQe" customClass="CollectionViewCell" customModule="CoffeeNote" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -180,7 +206,7 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="scaleToFill" reuseIdentifier="Header" id="ubq-Iw-pUZ" customClass="WeekdayCollectionReusableView" customModule="MoonNote" customModuleProvider="target">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="scaleToFill" reuseIdentifier="Header" id="ubq-Iw-pUZ" customClass="WeekdayCollectionReusableView" customModule="CoffeeNote" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="331" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -193,7 +219,7 @@
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
-                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="center" reuseIdentifier="Cell" id="noZ-Gk-KTD" customClass="WeekdayCollectionViewCell" customModule="MoonNote" customModuleProvider="target">
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="center" reuseIdentifier="Cell" id="noZ-Gk-KTD" customClass="WeekdayCollectionViewCell" customModule="CoffeeNote" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
