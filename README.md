@@ -3,10 +3,10 @@
 Ever wanted to add an event to a calendar without the hassle of finding out the start time, date, or place? Coffee Note allows you to save information in notepad format for a specific day of the month/year. For example, if you input the text “Math Homework Due” under Friday, December 4, 2015, the information will be saved to that specific day, ready to be pulled up in a notepad format whenever you select that day next.
 
 ##**See for yourself!**
-<img src="/README/ViewController.png" width="300"/>
+<img src="/README/ViewController.PNG" width="300"/>
 The top half of the screen is dedicated to a normal calendar view corresponding to the a given month. The bottom half is a notepad for the selected day. To edit this day’s notepad, simply tap to pull up the edit screen. 
 
-<img src="/README/EditScreen.png" width="300"/>
+<img src="/README/EditScreen.PNG" width="300"/>
 Simply input whatever data you’d like into the notepad and tap the text to save!
 
 ##**Current Identified Glitches**
