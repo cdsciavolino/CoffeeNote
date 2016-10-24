@@ -1,17 +1,13 @@
 # Coffee Note
 
-Ever wanted to add an event to a calendar without the hassle of finding out the start time, date, or place? Coffee Note allows you to save information in notepad format for a specific day of the month/year. For example, if you input the text “Math Homework Due” under Friday, December 4, 2015, the information will be saved to that specific day, ready to be pulled up in a notepad format whenever you select that day next.
+Ever wanted to add an event to a calendar without the hassle of finding out the start time, date, or place? Coffee Note allows you to save information in notepad format for a specific day of the month/year. For example, if you input the text “Math Homework Due!” under Friday, October 14, 2016, the information will be saved to that specific day, ready to be pulled up in a notepad format whenever you select that day next.
 
 ##**See for yourself!**
 <img src="/README/ViewController.PNG" width="300"/> <img src="/README/EditScreen.PNG" width="300"/>
 
 The top half of the screen is dedicated to a normal calendar view corresponding to the a given month. The bottom half is a notepad for the selected day. To edit this day’s notepad, simply tap to pull up the edit screen. 
 
-Simply input whatever data you’d like into the notepad and tap the text to save!
-
-##**Current Identified Glitches**
-- GLITCH: Month buttons on either side of calendar change back to white when data is edited (assuming different color scheme
-- GLITCH: Does not format correctly on other models of phone (Works on iPhone 6)
+Input whatever data you’d like into the notepad and then tap the text to save!
 
 ##**Coming Soon:**
 - Detail view controller
@@ -23,6 +19,10 @@ Simply input whatever data you’d like into the notepad and tap the text to sav
 - ListView of all input data
 - More color schemes
 - Report bugs and send suggestions
+
+##**Current Identified Glitches**
+- GLITCH: Month buttons on either side of calendar change back to white when data is edited (assuming different color scheme
+- GLITCH: Does not format correctly on other models of phone (Works on iPhone 6)
 
 ##**Contact**
 - Chris Sciavolino
